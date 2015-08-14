@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>node.environment</name>
+    <value>production</value>
+    <description>
+      The name of the environment. All Presto nodes in a cluster must have the
+      same environment name.
+    </description>
+  </property>
+
+  <property>
+    <name>node.data-dir</name>
+    <value>/var/data/presto</value>
+    <description>
+      The location (filesystem path) of the data directory. Presto will store
+      logs and other data here.
+    </description>
+  </property>
+</configuration>

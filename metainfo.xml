@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<metainfo>
+  <schemaVersion>2.0</schemaVersion>
+  <services>
+    <service>
+      <name>PRESTO</name>
+      <displayName>Presto</displayName>
+      <comment>Presto is an open source distributed SQL query engine for running
+        interactive analytic queries against data sources of all sizes ranging
+        from gigabytes to petabytes.
+      </comment>
+      <version>0.114</version>
+      <components>
+        <component>
+          <name>PRESTO_COORDINATOR</name>
+          <displayName>Presto coordinator</displayName>
+          <category>MASTER</category>
+          <cardinality>1</cardinality>
+          <versionAdvertised>true</versionAdvertised>
+          <commandScript>
+            <script>scripts/presto_coordinator.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
+        </component>
+
+        <component>
+          <name>PRESTO_WORKER</name>
+          <displayName>Presto worker</displayName>
+          <category>SLAVE</category>
+          <cardinality>1+</cardinality>
+          <versionAdvertised>true</versionAdvertised>
+          <commandScript>
+            <script>scripts/presto_worker.py</script>
+            <scriptType>PYTHON</scriptType>
+          </commandScript>
+        </component>
+
+        <component>
+          <name>PRESTO_CLI</name>
+          <displayName>Presto command line interface</displayName>
+          <category>CLIENT</category>
+          <cardinality>1+</cardinality>
+          <versionAdvertised>true</versionAdvertised>
+          <commandScript>
+            <script>scripts/presto_cli.py</script>
+            <scriptType>PYTHON</scriptType>
+          </commandScript>
+        </component>
+      </components>
+
+      <configuration-dependencies>
+        <config-type>node.properties</config-type>
+        <config-type>config.properties</config-type>
+        <config-type>jvm.config</config-type>
+      </configuration-dependencies>
+
+    </service>
+  </services>
+</metainfo>
