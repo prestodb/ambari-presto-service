@@ -63,6 +63,7 @@
     </description>
   </property>
 
+<!-- TODO, figure out how to make this optional
   <property require-input="false">
     <name>query.queue-config-file</name>
     <value></value>
@@ -72,4 +73,6 @@
         file and the expected options.
     </description>
   </property>
+-->
+
 </configuration>

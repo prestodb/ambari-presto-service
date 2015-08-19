@@ -18,4 +18,22 @@
       logs and other data here.
     </description>
   </property>
+
+  <property>
+    <name>plugin.config-dir</name>
+    <value>/etc/presto/catalog</value>
+    <description>
+      Configuration directory for plugins. This is where you should place
+      connector property files.
+    </description>
+  </property>
+
+  <property>
+    <name>plugin.dir</name>
+    <value>/usr/lib/presto/lib/plugin</value>
+    <description>
+      Library directory for plugins.
+    </description>
+  </property>
+
 </configuration>
