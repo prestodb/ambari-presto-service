@@ -15,6 +15,7 @@ class Worker(Script):
 
     def start(self, env):
         from params import daemon_control_script
+        self.configure(self)
         Execute('{0} start'.format(daemon_control_script))
 
     def status(self, env):
@@ -25,6 +26,7 @@ class Worker(Script):
         from params import node_properties, jvm_config, config_properties, \
             config_directory
         key_val_template = '{0}={1}\n'
+
         with open(path.join(config_directory, 'node.properties'), 'w') as f:
             for key, value in node_properties.iteritems():
                 f.write(key_val_template.format(key, value))

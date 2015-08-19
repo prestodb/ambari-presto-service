@@ -28,7 +28,7 @@
           <name>PRESTO_WORKER</name>
           <displayName>Presto worker</displayName>
           <category>SLAVE</category>
-          <cardinality>1+</cardinality>
+          <cardinality>0+</cardinality>
           <versionAdvertised>true</versionAdvertised>
           <commandScript>
             <script>scripts/presto_worker.py</script>

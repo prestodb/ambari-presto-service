@@ -15,6 +15,7 @@ class Master(Script):
 
     def start(self, env):
         from params import daemon_control_script
+        self.configure(env)
         Execute('{0} start'.format(daemon_control_script))
 
     def status(self, env):
@@ -38,9 +39,14 @@ class Master(Script):
             for key, value in config_properties.iteritems():
                 if key == 'query.queue-config-file' and value.strip() == '':
                     continue
+                if key == 'pseudo.distributed.enabled':
+                    continue
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('coordinator', 'true'))
             f.write(key_val_template.format('discovery-server.enabled', 'true'))
+            if config_properties['pseudo.distributed.enabled']:
+                f.write(key_val_template.format(
+                    'node-scheduler.include-coordinator', 'true'))
 
 if __name__ == '__main__':
     Master().execute()
