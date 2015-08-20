@@ -2,6 +2,7 @@ import socket
 import os.path as path
 
 from resource_management import *
+from common import create_tpch_connector
 
 class Worker(Script):
     def install(self, env):
@@ -41,6 +42,8 @@ class Worker(Script):
                     continue
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('coordinator', 'false'))
+
+        create_tpch_connector(node_properties)
 
 if __name__ == '__main__':
     Worker().execute()

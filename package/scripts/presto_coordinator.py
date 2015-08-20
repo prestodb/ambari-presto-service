@@ -2,6 +2,7 @@ import socket
 import os.path as path
 
 from resource_management import *
+from common import create_tpch_connector
 
 class Master(Script):
     def install(self, env):
@@ -47,6 +48,8 @@ class Master(Script):
             if config_properties['pseudo.distributed.enabled']:
                 f.write(key_val_template.format(
                     'node-scheduler.include-coordinator', 'true'))
+
+        create_tpch_connector(node_properties)
 
 if __name__ == '__main__':
     Master().execute()
