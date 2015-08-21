@@ -1,5 +1,6 @@
 from resource_management import *
 
+
 class Cli(Script):
     def install(self, env):
         Execute('wget sdvl3bdch001.td.teradata.com/RPMs/presto-cli-0.114-executable.jar -P /usr/lib/presto/bin')

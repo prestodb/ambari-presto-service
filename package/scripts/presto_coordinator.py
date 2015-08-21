@@ -3,6 +3,7 @@ import os.path as path
 
 from resource_management import *
 from common import create_tpch_connector
+from presto_client import smoketest_presto
 
 class Master(Script):
     def install(self, env):
@@ -15,9 +16,10 @@ class Master(Script):
         Execute('{0} stop'.format(daemon_control_script))
 
     def start(self, env):
-        from params import daemon_control_script
+        from params import daemon_control_script, config_properties
         self.configure(env)
         Execute('{0} start'.format(daemon_control_script))
+        smoketest_presto('localhost', config_properties['http-server.http.port'])
 
     def status(self, env):
         from params import daemon_control_script
