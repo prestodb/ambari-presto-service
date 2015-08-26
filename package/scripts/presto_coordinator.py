@@ -2,13 +2,13 @@ import socket
 import os.path as path
 
 from resource_management import *
-from common import create_tpch_connector
+from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME
 from presto_client import smoketest_presto
 
 class Master(Script):
     def install(self, env):
-        Execute('wget sdvl3bdch001.td.teradata.com/RPMs/presto-server-rpm-0.114-1.x86_64.rpm -P /tmp')
-        Execute('rpm -i /tmp/presto-server-rpm-0.114-1.x86_64.rpm')
+        Execute('wget {0} -P /tmp -O {1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
+        Execute('rpm -i /tmp/{0}'.format(PRESTO_RPM_NAME))
         self.configure(env)
 
     def stop(self, env):

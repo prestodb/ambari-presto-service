@@ -55,6 +55,15 @@
         <config-type>jvm.config</config-type>
       </configuration-dependencies>
 
+      <!-- TODO figure out why theme halts entire application
+      <themes-dir>themes</themes-dir>
+      <themes>
+        <theme>
+          <fileName>theme.json</fileName>
+          <default>true</default>
+        </theme>
+      </themes>
+      -->
     </service>
   </services>
 </metainfo>

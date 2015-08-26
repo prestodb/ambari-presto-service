@@ -1,0 +1,222 @@
+{
+  "name": "default",
+  "description": "Default theme for Presto service",
+  "configuration": {
+    "layouts": [
+      {
+        "name": "default",
+        "tabs": [
+          {
+            "name": "settings",
+            "display-name": "Settings",
+            "layout": {
+              "tab-columns": "2",
+              "tab-rows": "2",
+              "sections": [
+                {
+                  "name": "section-node-config",
+                  "display-name": "Node Config",
+                  "row-index": "0",
+                  "column-index": "0",
+                  "row-span": "1",
+                  "column-span": "1",
+                  "section-columns": "1",
+                  "section-rows": "1",
+                  "subsections": [
+                    {
+                      "name": "subsection-node-config",
+                      "row-index": "0",
+                      "column-index": "0",
+                      "row-span": "1",
+                      "column-span": "1"
+                    }
+                  ]
+                },
+                {
+                  "name": "section-general-config",
+                  "display-name": "General Config",
+                  "row-index": "0",
+                  "column-index": "1",
+                  "row-span": "1",
+                  "column-span": "1",
+                  "section-columns": "1",
+                  "section-rows": "1",
+                  "subsections": [
+                    {
+                      "name": "subsection-general-config",
+                      "row-spanw-index": "0",
+                      "column-index": "0",
+                      "row-span": "1",
+                      "column-span": "1"
+                    }
+                  ]
+                },
+                {
+                  "name": "section-jvm-config",
+                  "display-name": "JVM Config",
+                  "row-index": "1",
+                  "column-index": "0",
+                  "row-span": "1",
+                  "column-span": "1",
+                  "section-columns": "1",
+                  "section-rows": "1",
+                  "subsections": [
+                    {
+                      "name": "subsection-jvm-config",
+                      "row-spanw-index": "0",
+                      "column-index": "0",
+                      "row-span": "1",
+                      "column-span": "1"
+                    }
+                  ]
+                } 
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "placement": {
+      "configuration-layout": "default",
+      "configs": [
+        {
+          "config": "node.properties/node.environment",
+          "subsection-name": "subsection-node-config"
+        },
+        {
+          "config": "node.properties/node.data-dir",
+          "subsection-name": "subsection-node-config"
+        },
+        {
+          "config": "node.properties/plugin.config-dir",
+          "subsection-name": "subsection-node-config"
+        },
+        {
+          "config": "node.properties/plugin.dir",
+          "subsection-name": "subsection-node-config"
+        },
+        {
+          "config": "config.properties/node-scheduler.include-coordinator",
+          "subsection-name": "subsection-general-config"
+        },
+        {
+          "config": "config.properties/http-server.http.port",
+          "subsection-name": "subsection-general-config"
+        },
+        {
+          "config": "config.properties/task.max-memory",
+          "subsection-name": "subsection-general-config"
+        },
+        {
+          "config": "config.properties/query.max-memory",
+          "subsection-name": "subsection-general-config"
+        },
+        {
+          "config": "config.properties/query.max-memory-per-node",
+          "subsection-name": "subsection-general-config"
+        },
+        {
+          "config": "config.properties/disovery.uri",
+          "subsection-name": "subsection-general-config"
+        },
+        {
+          "config": "config.properties/pseudo.distributed.enabled",
+          "subsection-name": "subsection-general-config"
+        },
+        {
+          "config": "jvm.config/jvm.config",
+          "subsection-name": "subsection-jvm-config"
+        }
+      ]
+    },
+    "widgets": [
+      {
+        "config": "node.properties/node.environment",
+        "widget": {
+          "type": "directories"
+        }
+      },
+      {
+        "config": "node.properties/node.data-dir",
+        "widget": {
+          "type": "directories"
+        }
+      },
+      {
+        "config": "node.properties/plugin.config-dir",
+        "widget": {
+          "type": "directories"
+        }
+      },
+      {
+        "config": "node.properties/plugin.dir",
+        "widget": {
+          "type": "directories"
+        }
+      },
+      {
+        "config": "config.properties/node-scheduler.include-coordinator",
+        "widget": {
+          "type": "toggle"
+        }
+      },
+      {
+        "config": "config.properties/http-server.http.port",
+        "widget": {
+          "type": "directories"
+        }
+      },
+      {
+        "config": "config.properties/task.max-memory",
+        "widget": {
+          "type": "slider",
+          "units": [
+            {
+              "unit-name": "GB"
+            }
+          ]
+        }
+      },
+      {
+        "config": "config.properties/query.max-memory",
+        "widget": {
+          "type": "slider",
+          "units": [
+            {
+              "unit-name": "GB"
+            }
+          ]
+        }
+      },
+      {
+        "config": "config.properties/query.max-memory-per-node",
+        "widget": {
+          "type": "slider",
+          "units": [
+            {
+              "unit-name": "GB"
+            }
+          ]
+        }
+      },
+      {
+        "config": "config.properties/discovery.uri",
+        "widget": {
+          "type": "directories"
+        }
+      },
+      {
+        "config": "config.properties/pseudo.distributed.enabled",
+        "widget": {
+          "type": "toggle"
+        }
+      },
+      {
+        "config": "jvm.properties/jvm.config",
+        "widget": {
+        "type": "directories"
+        }
+      }
+    ]
+  }
+}
