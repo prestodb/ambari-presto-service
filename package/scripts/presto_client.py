@@ -17,6 +17,7 @@ DATA_RESP = 'data'
 NEXT_URI_RESP = 'nextUri'
 RETRY_TIMEOUT = 120
 SYSTEM_RUNTIME_NODES = 'select * from system.runtime.nodes'
+SHOW_CATALOGS = 'show catalogs'
 SLEEP_INTERVAL = 10
 
 logging.basicConfig(stream=sys.stdout)
@@ -24,6 +25,33 @@ _LOGGER = logging.getLogger(__name__)
 
 def smoketest_presto(server_host, port):
     client = PrestoClient(server_host, 'root', port)
+    ensure_nodes_are_up(client)
+    ensure_catalogs_are_available(client)
+    client.execute_query('select * from nation', schema='sf1', catalog='tpch')
+    rows = client.get_rows()
+    if len(rows) != 25:
+        raise RuntimeError('Presto server failed to return the correct \
+number of rows from nation table in TPCH connector. Expected 25 but got {0}'.format(len(rows)))
+
+def ensure_catalogs_are_available(client):
+    rows = []
+    elapsed_time = 0
+    while elapsed_time < RETRY_TIMEOUT:
+        client.execute_query(SHOW_CATALOGS)
+        rows = client.get_rows()
+        if not rows:
+            time.sleep(SLEEP_INTERVAL)
+            _LOGGER.debug('Failed to load catalogs after '
+                          'waiting for %d seconds. Retrying...' % elapsed_time)
+            elapsed_time += SLEEP_INTERVAL
+        else:
+            break
+    if not rows:
+        raise RuntimeError('Presto server failed to load all catalogs within \
+{0} seconds.'.format(RETRY_TIMEOUT))
+
+
+def ensure_nodes_are_up(client):
     result = True
     elapsed_time = 0
     while elapsed_time < RETRY_TIMEOUT:
@@ -38,11 +66,6 @@ def smoketest_presto(server_host, port):
     if not result:
         raise RuntimeError('Presto server failed to start within \
 {0} seconds.'.format(RETRY_TIMEOUT))
-    client.execute_query('select * from nation', schema='sf1', catalog='tpch')
-    if len(client.get_rows()) != 25:
-        raise RuntimeError('Presto server failed to return the correct \
-number of rows from nation table in TPCH connector')
-
 
 
 class PrestoClient:

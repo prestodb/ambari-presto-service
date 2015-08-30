@@ -7,7 +7,7 @@ from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME
 
 class Worker(Script):
     def install(self, env):
-        Execute('wget {0} -P /tmp -O {1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
+        Execute('wget {0} -O /tmp/{1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
         Execute('rpm -i /tmp/{0}'.format(PRESTO_RPM_NAME))
         self.configure(env)
 
@@ -40,6 +40,8 @@ class Worker(Script):
         with open(path.join(config_directory, 'config.properties'), 'w') as f:
             for key, value in config_properties.iteritems():
                 if key == 'query.queue-config-file' and value.strip() == '':
+                    continue
+                if key == 'pseudo.distributed.enabled':
                     continue
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('coordinator', 'false'))

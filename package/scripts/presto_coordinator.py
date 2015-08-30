@@ -7,7 +7,7 @@ from presto_client import smoketest_presto
 
 class Master(Script):
     def install(self, env):
-        Execute('wget {0} -P /tmp -O {1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
+        Execute('wget {0}  -O /tmp/{1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
         Execute('rpm -i /tmp/{0}'.format(PRESTO_RPM_NAME))
         self.configure(env)
 
