@@ -116,7 +116,7 @@
           "subsection-name": "subsection-general-config"
         },
         {
-          "config": "config.properties/disovery.uri",
+          "config": "config.properties/discovery.uri",
           "subsection-name": "subsection-general-config"
         },
         {
@@ -212,7 +212,7 @@
         }
       },
       {
-        "config": "jvm.properties/jvm.config",
+        "config": "jvm.config/jvm.config",
         "widget": {
         "type": "directories"
         }

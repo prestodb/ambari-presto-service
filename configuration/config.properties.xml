@@ -10,6 +10,20 @@
       resources are not available for the critical task of scheduling, managing
       and monitoring query execution.
     </description>
+    <value-attributes>
+      <type>value-list</type>
+      <entries>
+        <entry>
+          <value>true</value>
+          <label>Enabled</label>
+        </entry>
+        <entry>
+          <value>false</value>
+          <label>Disabled</label>
+        </entry>
+      </entries>
+      <selection-cardinality>1</selection-cardinality>
+    </value-attributes>
   </property>
 
   <property>
@@ -34,6 +48,13 @@
       limit the queries that can be run, while setting it too high will cause
       the JVM to run out of memory.
     </description>
+    <value-attributes>
+      <type>int</type>
+      <minimum>0</minimum>
+      <maximum>5</maximum>
+      <increment-step>1</increment-step>
+      <unit>GB</unit>
+    </value-attributes>
   </property>
 
   <property>
@@ -42,6 +63,13 @@
     <description>
       The maximum amount of distributed memory that a query may use.
     </description>
+    <value-attributes>
+      <type>int</type>
+      <minimum>0</minimum>
+      <maximum>5</maximum>
+      <increment-step>1</increment-step>
+      <unit>GB</unit>
+    </value-attributes>
   </property>
 
   <property>
@@ -50,6 +78,13 @@
     <description>
       The maximum amount of memory that a query may use on any one machine.
     </description>
+    <value-attributes>
+      <type>int</type>
+      <minimum>0</minimum>
+      <maximum>5</maximum>
+      <increment-step>1</increment-step>
+      <unit>GB</unit>
+    </value-attributes>
   </property>
 
   <property>
@@ -84,9 +119,6 @@
       component that needs to be assigned to a node is the coordinator.
     </description>
     <display-name>Pseudo Distributed Mode</display-name>
-    <value-attributes>
-      <type>boolean</type>
-    </value-attributes>
     <value-attributes>
       <type>value-list</type>
       <entries>
