@@ -1,2 +1,6 @@
 *.pyc
 *.swp
+*.eggs
+build/
+dist/
+presto.egg-info/
