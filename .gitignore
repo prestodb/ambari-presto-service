@@ -3,4 +3,4 @@
 *.eggs
 build/
 dist/
-presto.egg-info/
+ambari_presto.egg-info/
