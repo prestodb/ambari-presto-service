@@ -70,6 +70,7 @@
         <config-type>jvm.config</config-type>
       </configuration-dependencies>
 
+      <!--
       <themes-dir>themes</themes-dir>
       <themes>
         <theme>
@@ -77,7 +78,8 @@
           <default>true</default>
         </theme>
       </themes>
-      
+      -->
+
     </service>
   </services>
 </metainfo>

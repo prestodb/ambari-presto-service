@@ -15,7 +15,8 @@
 import socket
 import os.path as path
 
-from resource_management import *
+from resource_management.libraries.script.script import Script
+from resource_management.core.resources.system import Execute
 from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME
 
 

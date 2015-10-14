@@ -1,6 +1,7 @@
 *.pyc
 *.swp
 *.eggs
+.idea/
 build/
 dist/
 ambari_presto.egg-info/
