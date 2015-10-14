@@ -12,9 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from mock import Mock, patch
+
 import unittest
+import sys
+sys.modules['resource_management'] = Mock()
+sys.modules['resource_management.core'] = Mock()
+sys.modules['resource_management.core.resources'] = Mock()
+sys.modules['resource_management.core.resources.system'] = Mock()
+
+sys.modules['resource_management.libraries'] = Mock()
+sys.modules['resource_management.libraries.script'] = Mock()
+sys.modules['resource_management.libraries.script.script'] = Mock()
+
+from package.scripts.presto_worker import Worker
+
 
 class TestWorker(unittest.TestCase):
 
+    def setUp(self):
+        self.mock_env = Mock()
+
     def test_start(self):
-        pass
+        presto_worker = Worker()
+        presto_worker.install(self.mock_env)

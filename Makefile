@@ -34,6 +34,8 @@ clean-pyc:
 clean-build:
 	rm -fr build/
 	rm -fr dist/
+	rm -fr ambari_presto.egg-info/
+	rm -fr .eggs/
 
 clean-test:
 	rm -rf .tox/
@@ -42,5 +44,5 @@ test: clean-test
 	tox -- -s tests
 
 dist: clean-build clean-pyc
-	python setup.py bdist
+	python setup.py sdist
 	ls -l dist

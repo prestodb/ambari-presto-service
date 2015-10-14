@@ -2,6 +2,7 @@
 *.swp
 *.eggs
 .idea/
+.tox/
 build/
 dist/
 ambari_presto.egg-info/
