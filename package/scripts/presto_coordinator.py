@@ -18,7 +18,7 @@ import os.path as path
 from resource_management.libraries.script.script import Script
 from resource_management.core.resources.system import Execute
 from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME
-from presto_client import smoketest_presto
+from presto_client import smoketest_presto, PrestoClient
 
 class Master(Script):
     def install(self, env):
@@ -34,7 +34,8 @@ class Master(Script):
         from params import daemon_control_script, config_properties
         self.configure(env)
         Execute('{0} start'.format(daemon_control_script))
-        smoketest_presto('localhost', config_properties['http-server.http.port'])
+        smoketest_presto(PrestoClient('localhost', 'root',
+                                      config_properties['http-server.http.port']))
 
     def status(self, env):
         from params import daemon_control_script

@@ -5,10 +5,9 @@ include metainfo.xml
 include Makefile
 include requirements.txt
 
-exclude setup.cfg
-
-recursive-include tests *
 recursive-include themes *
 recursive-include configuration *
+
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
+recursice-exclude tests *

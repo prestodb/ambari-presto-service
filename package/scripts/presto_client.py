@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-'''
+"""
 Simple client to communicate with a Presto server.
-'''
+"""
 from httplib import HTTPConnection, HTTPException
 import logging
 import json
@@ -37,8 +37,7 @@ SLEEP_INTERVAL = 10
 logging.basicConfig(stream=sys.stdout)
 _LOGGER = logging.getLogger(__name__)
 
-def smoketest_presto(server_host, port):
-    client = PrestoClient(server_host, 'root', port)
+def smoketest_presto(client):
     ensure_nodes_are_up(client)
     ensure_catalogs_are_available(client)
     client.execute_query('select * from nation', schema='sf1', catalog='tpch')
@@ -104,7 +103,7 @@ class PrestoClient:
             self.response_from_server = {}
 
     def execute_query(self, sql, schema='sf1', catalog='tpch'):
-        '''
+        """
         Execute a query connecting to Presto server using passed parameters.
 
         Client sends http POST request to the Presto server, page:
@@ -119,7 +118,7 @@ class PrestoClient:
 
         Returns:
             True or False exit status
-        '''
+        """
         if not sql:
             raise InvalidArgumentError('SQL query missing')
 
@@ -168,10 +167,10 @@ class PrestoClient:
             raise e
 
     def get_response_from(self, uri):
-        '''
+        """
         Sends a GET request to the Presto server at the specified next_uri
         and updates the response
-        '''
+        """
         try:
             conn = urlopen(uri, None, URL_TIMEOUT_MS)
             answer = conn.read()
@@ -186,14 +185,14 @@ class PrestoClient:
             return False
 
     def build_results_from_response(self):
-        '''
+        """
         Build result from the response
 
         The reponse_from_server may contain up to 3 uri's.
         1. link to fetch the next packet of data ('nextUri')
         2. TODO: information about the query execution ('infoUri')
         3. TODO: cancel the query ('partialCancelUri').
-        '''
+        """
         if NEXT_URI_RESP in self.response_from_server:
             self.next_uri = self.response_from_server[NEXT_URI_RESP]
         else:
@@ -206,7 +205,7 @@ class PrestoClient:
                 self.rows = self.response_from_server[DATA_RESP]
 
     def get_rows(self, num_of_rows=NUM_ROWS):
-        '''
+        """
         Get the rows returned from the query.
 
         The client sends GET requests to the server using the 'nextUri'
@@ -219,7 +218,7 @@ class PrestoClient:
 
         Parameters:
             num_of_rows: to be retrieved. 1000 by default
-        '''
+        """
         if num_of_rows == 0:
             return []
 
