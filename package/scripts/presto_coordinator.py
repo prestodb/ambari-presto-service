@@ -20,7 +20,7 @@ from resource_management.core.resources.system import Execute
 from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME
 from presto_client import smoketest_presto, PrestoClient
 
-class Master(Script):
+class Coordinator(Script):
     def install(self, env):
         Execute('wget {0}  -O /tmp/{1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
         Execute('rpm -i /tmp/{0}'.format(PRESTO_RPM_NAME))
@@ -70,4 +70,4 @@ class Master(Script):
         create_tpch_connector(node_properties)
 
 if __name__ == '__main__':
-    Master().execute()
+    Coordinator().execute()
