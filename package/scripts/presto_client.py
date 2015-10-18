@@ -80,7 +80,8 @@ def ensure_nodes_are_up(client):
         raise RuntimeError('Presto server failed to start within \
 {0} seconds.'.format(RETRY_TIMEOUT))
 
-
+# This class was copied more or less verbatim from
+# https://github.com/prestodb/presto-admin/blob/master/prestoadmin/prestoclient.py
 class PrestoClient:
     response_from_server = {}
     # rows returned by the query
@@ -162,7 +163,7 @@ class PrestoClient:
                           self.server + ':' + str(self.port))
             return False
         except ValueError as e:
-            _LOGGER.error('Error connecting to Presto server: ' + e.message +
+            _LOGGER.error('Error connecting to Presto server: ' + str(e) +
                           ' error from server: ' + answer)
             raise e
 

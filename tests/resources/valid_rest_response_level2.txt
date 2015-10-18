@@ -1,0 +1,6 @@
+{
+    "id":"2015_harih",
+    "infoUri":"http://localhost:8080/v1/query/2015_harih",
+    "nextUri":"",
+    "data":[["uuid1","http://localhost:8080","presto-main:0.97",true], ["uuid2","http://worker:8080","presto-main:0.97",false]]
+}

@@ -58,6 +58,8 @@ class Coordinator(Script):
             for key, value in config_properties.iteritems():
                 if key == 'query.queue-config-file' and value.strip() == '':
                     continue
+                # ignore as it's not an actual config property, just
+                # the user visible equivalent to node-scheduler.include-coordinator
                 if key == 'pseudo.distributed.enabled':
                     continue
                 f.write(key_val_template.format(key, value))
