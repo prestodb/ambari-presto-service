@@ -20,7 +20,8 @@ import sys
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from package.scripts.presto_coordinator import Coordinator
-from test_worker import mock_file_descriptor_write_method
+from test_worker import mock_file_descriptor_write_method, \
+    collect_config_vars_written_out
 
 class TestCoordinator(unittest.TestCase):
 
@@ -41,19 +42,24 @@ class TestCoordinator(unittest.TestCase):
         presto_coordinator = Coordinator()
 
         presto_coordinator.install(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 2
+        assert 'wget' in execute_mock.call_args_list[0][0][0]
+        assert 'rpm -i' in execute_mock.call_args_list[1][0][0]
         execute_mock.reset_mock()
 
         presto_coordinator.stop(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 1
+        assert 'stop' in execute_mock.call_args_list[0][0][0]
         execute_mock.reset_mock()
 
         presto_coordinator.start(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 1
+        assert 'start' in execute_mock.call_args_list[0][0][0]
         execute_mock.reset_mock()
 
         presto_coordinator.status(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 1
+        assert 'status' in execute_mock.call_args_list[0][0][0]
 
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     @patch('package.scripts.presto_coordinator.smoketest_presto')
@@ -96,12 +102,7 @@ class TestCoordinator(unittest.TestCase):
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_assert_constant_properties(self, create_tpch_connector_mock):
-        config = []
-        open_mock = mock_file_descriptor_write_method(config)
-        presto_coordinator = Coordinator()
-
-        with patch('__builtin__.open', open_mock):
-            presto_coordinator.configure(self.mock_env)
+        config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert 'discovery-server.enabled=true\n' in config
         assert 'coordinator=true\n' in config
@@ -109,12 +110,7 @@ class TestCoordinator(unittest.TestCase):
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_configure_ignore_empty_queue_config_file(self, create_tpch_connector_mock):
-        config = []
-        open_mock = mock_file_descriptor_write_method(config)
-        presto_coordinator = Coordinator()
-
-        with patch('__builtin__.open', open_mock):
-            presto_coordinator.configure(self.mock_env)
+        config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         for item in config:
             assert not item.startswith('query.queue-config-file')
@@ -122,11 +118,6 @@ class TestCoordinator(unittest.TestCase):
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_configure_pseudo_distributed(self, create_tpch_connector_mock):
-        config = []
-        open_mock = mock_file_descriptor_write_method(config)
-        presto_coordinator = Coordinator()
-
-        with patch('__builtin__.open', open_mock):
-            presto_coordinator.configure(self.mock_env)
+        config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert 'node-scheduler.include-coordinator=true\n' in config

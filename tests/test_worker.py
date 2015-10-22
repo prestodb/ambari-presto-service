@@ -39,19 +39,24 @@ class TestWorker(unittest.TestCase):
         presto_worker = Worker()
 
         presto_worker.install(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 2
+        assert 'wget' in execute_mock.call_args_list[0][0][0]
+        assert 'rpm -i' in execute_mock.call_args_list[1][0][0]
         execute_mock.reset_mock()
 
         presto_worker.stop(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 1
+        assert 'stop' in execute_mock.call_args_list[0][0][0]
         execute_mock.reset_mock()
 
         presto_worker.start(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 1
+        assert 'start' in execute_mock.call_args_list[0][0][0]
         execute_mock.reset_mock()
 
         presto_worker.status(self.mock_env)
-        assert execute_mock.called
+        assert execute_mock.call_count is 1
+        assert 'status' in execute_mock.call_args_list[0][0][0]
 
     @patch('package.scripts.presto_worker.Worker.configure')
     @patch('package.scripts.presto_worker.Execute')
@@ -68,34 +73,24 @@ class TestWorker(unittest.TestCase):
 
     @patch('package.scripts.presto_worker.create_tpch_connector')
     def test_configure_adds_tpch_connector(self, create_tpch_connector_mock):
-         presto_worker = Worker()
+        presto_worker = Worker()
 
-         with patch('__builtin__.open'):
+        with patch('__builtin__.open'):
             presto_worker.configure(self.mock_env)
 
-         assert create_tpch_connector_mock.called
+        assert create_tpch_connector_mock.called
 
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_configure_ignore_pseudo_distribute_enabled_property(self, create_tpch_connector_mock):
-        config = []
-        open_mock = mock_file_descriptor_write_method(config)
-        presto_worker = Worker()
-
-        with patch('__builtin__.open', open_mock):
-            presto_worker.configure(self.mock_env)
+        config = collect_config_vars_written_out(self.mock_env, Worker())
 
         assert 'pseudo.distributed.enabled=true\n' not in config
 
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_configure_ignore_empty_queue_config_file(self, create_tpch_connector_mock):
-        config = []
-        open_mock = mock_file_descriptor_write_method(config)
-        presto_worker = Worker()
-
-        with patch('__builtin__.open', open_mock):
-            presto_worker.configure(self.mock_env)
+        config = collect_config_vars_written_out(self.mock_env, Worker())
 
         for item in config:
             assert not item.startswith('query.queue-config-file')
@@ -103,15 +98,19 @@ class TestWorker(unittest.TestCase):
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_config_properties_coordinator_always_false(self, create_tpch_connector_mock):
-        config = []
-        open_mock = mock_file_descriptor_write_method(config)
-        presto_worker = Worker()
-
-        with patch('__builtin__.open', open_mock):
-            presto_worker.configure(self.mock_env)
+        config = collect_config_vars_written_out(self.mock_env, Worker())
 
         assert 'coordinator=false\n' in config
 
+
+def collect_config_vars_written_out(mock_env, obj_under_test):
+    config = []
+    open_mock = mock_file_descriptor_write_method(config)
+
+    with patch('__builtin__.open', open_mock):
+        getattr(obj_under_test, 'configure')(mock_env)
+
+    return config
 
 def mock_file_descriptor_write_method(list):
     def append(item_to_append):
