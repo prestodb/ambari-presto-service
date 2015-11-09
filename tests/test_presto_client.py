@@ -16,6 +16,9 @@ import re
 import socket
 import os
 import json
+import sys
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+
 from mock import MagicMock, patch, PropertyMock
 from httplib import HTTPException, HTTPConnection
 from unittest import TestCase
@@ -31,26 +34,35 @@ class TestPrestoClientSmoketest(TestCase):
     def setUp(self):
         self.presto_client_mock = MagicMock()
 
-    def test_presto_queried_on_smoketest(self):
-        self.presto_client_mock.get_rows.return_value = TestPrestoClientSmoketest.nation
+    @patch('package.scripts.presto_client.time.sleep', return_value=None)
+    def test_presto_queried_on_smoketest(self, unused_sleep_mock):
+        self.presto_client_mock.get_rows.side_effect = [[['master']], 'dummy_val', TestPrestoClientSmoketest.nation]
 
-        smoketest_presto(self.presto_client_mock)
+        smoketest_presto(self.presto_client_mock, ['master'])
 
         assert self.presto_client_mock.execute_query.called
 
-    def test_failure_when_fewer_than_25_rows_returned_from_nation(self):
-        self.presto_client_mock.get_rows.return_value = [1]
+    @patch('package.scripts.presto_client.time.sleep', return_value=None)
+    def test_failure_when_fewer_than_25_rows_returned_from_nation(self, unused_sleep_mock):
+        self.presto_client_mock.get_rows.return_value = [['master']]
 
-        TestCase.assertRaises(self, RuntimeError, smoketest_presto, self.presto_client_mock)
+        TestCase.assertRaises(self, RuntimeError, smoketest_presto, self.presto_client_mock, ['master'])
 
     @patch('package.scripts.presto_client.ensure_nodes_are_up', side_effect=RuntimeError())
     def test_failure_when_nodes_are_not_up(self, ensure_nodes_are_up_mock):
-        TestCase.assertRaises(self, RuntimeError, smoketest_presto, self.presto_client_mock)
+        TestCase.assertRaises(self, RuntimeError, smoketest_presto, self.presto_client_mock, ['master'])
 
+    @patch('package.scripts.presto_client.time.sleep', return_value=None)
     @patch('package.scripts.presto_client.ensure_catalogs_are_available', side_effect=RuntimeError())
-    def test_failure_when_catalogs_are_not_available(self, ensure_catalogs_are_available_mock):
-        TestCase.assertRaises(self, RuntimeError, smoketest_presto, self.presto_client_mock)
+    def test_failure_when_catalogs_are_not_available(self, ensure_catalogs_are_available_mock,
+                                                     unused_sleep_mock):
+        TestCase.assertRaises(self, RuntimeError, smoketest_presto, self.presto_client_mock, ['master'])
 
+    @patch('package.scripts.presto_client.time.sleep', return_value=None)
+    def test_failure_when_nodes_returned_dont_match_nodes_specified(self, unused_sleep_mock):
+        self.presto_client_mock.get_rows.return_value = [['bad_host']]
+
+        TestCase.assertRaises(self, RuntimeError, smoketest_presto, self.presto_client_mock, ['master'])
 
 # These tests were copied more or less verbatim from
 # https://github.com/prestodb/presto-admin/blob/master/tests/unit/test_prestoclient.py

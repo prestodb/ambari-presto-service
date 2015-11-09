@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from mock import MagicMock, patch, mock_open
+from unittest import TestCase
 
 import unittest
 import os
@@ -133,6 +134,11 @@ class TestCoordinator(unittest.TestCase):
 
         assert_memory_configs_properly_formatted(config)
 
+    @patch('package.scripts.params.host_info', new={'presto_worker_hosts': ['slave1']})
+    @patch('package.scripts.presto_coordinator.create_tpch_connector')
+    @patch('package.scripts.params.config_properties', new=dummy_config_properties)
+    def test_pseudo_distributed_topology_enforced(self, create_tpch_connector_mock):
+        TestCase.assertRaises(self, RuntimeError, collect_config_vars_written_out, self.mock_env, Coordinator())
 
 def assert_memory_configs_properly_formatted(configs_to_test):
     import re

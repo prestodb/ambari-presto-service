@@ -37,8 +37,8 @@ SLEEP_INTERVAL = 10
 logging.basicConfig(stream=sys.stdout)
 _LOGGER = logging.getLogger(__name__)
 
-def smoketest_presto(client):
-    ensure_nodes_are_up(client)
+def smoketest_presto(client, all_hosts):
+    ensure_nodes_are_up(client, all_hosts)
     ensure_catalogs_are_available(client)
     client.execute_query('select * from nation', schema='sf1', catalog='tpch')
     rows = client.get_rows()
@@ -64,7 +64,7 @@ def ensure_catalogs_are_available(client):
 {0} seconds.'.format(RETRY_TIMEOUT))
 
 
-def ensure_nodes_are_up(client):
+def ensure_nodes_are_up(client, all_hosts):
     result = True
     elapsed_time = 0
     while elapsed_time < RETRY_TIMEOUT:
@@ -79,6 +79,30 @@ def ensure_nodes_are_up(client):
     if not result:
         raise RuntimeError('Presto server failed to start within \
 {0} seconds.'.format(RETRY_TIMEOUT))
+
+    # Verify that the nodes we expect to have registered with the Discovery
+    # service have actually registered correctly
+    elapsed_time = 0
+    are_expected_nodes_up = False
+    while elapsed_time < RETRY_TIMEOUT:
+        client.execute_query(SYSTEM_RUNTIME_NODES)
+        nodes_returned_from_presto = []
+        for row in client.get_rows():
+            nodes_returned_from_presto.append(row[0])
+        if set(nodes_returned_from_presto) == set(all_hosts):
+            are_expected_nodes_up = True
+            break
+        else:
+            time.sleep(SLEEP_INTERVAL)
+            _LOGGER.debug('Elapsed time {0}'.format(elapsed_time))
+            _LOGGER.debug(
+                'Error comparing hosts returned from Presto {0} and hosts specified by user {1}'.format(
+                nodes_returned_from_presto, all_hosts))
+            elapsed_time += SLEEP_INTERVAL
+    if not are_expected_nodes_up:
+        raise RuntimeError(
+                'Hosts returned from Presto {0} do not equal hosts specified by user {1}'.format(
+                nodes_returned_from_presto, all_hosts))
 
 # This class was copied more or less verbatim from
 # https://github.com/prestodb/presto-admin/blob/master/prestoadmin/prestoclient.py

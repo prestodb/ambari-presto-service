@@ -27,3 +27,5 @@ config_directory = '/etc/presto'
 
 memory_configs = ['query.max-memory-per-node', 'query.max-memory',
                   'task.max-memory']
+
+host_info = config['clusterHostInfo']

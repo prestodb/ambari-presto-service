@@ -31,11 +31,16 @@ class Coordinator(Script):
         Execute('{0} stop'.format(daemon_control_script))
 
     def start(self, env):
-        from params import daemon_control_script, config_properties
+        from params import daemon_control_script, config_properties, \
+            host_info
         self.configure(env)
         Execute('{0} start'.format(daemon_control_script))
-        smoketest_presto(PrestoClient('localhost', 'root',
-                                      config_properties['http-server.http.port']))
+        all_hosts = host_info['presto_worker_hosts'] + \
+            host_info['presto_coordinator_hosts']
+        smoketest_presto(
+            PrestoClient('localhost','root',
+                         config_properties['http-server.http.port']),
+            all_hosts)
 
     def status(self, env):
         from params import daemon_control_script
@@ -43,7 +48,7 @@ class Coordinator(Script):
 
     def configure(self, env):
         from params import node_properties, jvm_config, config_properties, \
-            config_directory, memory_configs
+            config_directory, memory_configs, host_info
         key_val_template = '{0}={1}\n'
 
         with open(path.join(config_directory, 'node.properties'), 'w') as f:
@@ -68,10 +73,14 @@ class Coordinator(Script):
             f.write(key_val_template.format('coordinator', 'true'))
             f.write(key_val_template.format('discovery-server.enabled', 'true'))
             if config_properties['pseudo.distributed.enabled']:
+                if host_info['presto_worker_hosts']:
+                    raise RuntimeError('You cannot specify worker nodes '
+                        'in pseudo distributed mode')
                 f.write(key_val_template.format(
                     'node-scheduler.include-coordinator', 'true'))
 
         create_tpch_connector(node_properties)
+
 
 if __name__ == '__main__':
     Coordinator().execute()

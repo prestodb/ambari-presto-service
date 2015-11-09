@@ -8,4 +8,5 @@ class Script(object):
         return {'configurations':
                 {'node.properties': {},
                  'jvm.config': {'jvm.config': ''},
-                 'config.properties': {}}}
+                 'config.properties': {}},
+                 'clusterHostInfo': {'presto_worker_hosts': [], 'presto_coordinator_hosts': []}}
