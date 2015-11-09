@@ -41,7 +41,7 @@ class Worker(Script):
 
     def configure(self, env):
         from params import node_properties, jvm_config, config_properties, \
-            config_directory
+            config_directory, memory_configs
         key_val_template = '{0}={1}\n'
 
         with open(path.join(config_directory, 'node.properties'), 'w') as f:
@@ -58,6 +58,8 @@ class Worker(Script):
                     continue
                 if key == 'pseudo.distributed.enabled':
                     continue
+                if key in memory_configs:
+                    value += 'GB'
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('coordinator', 'false'))
 

@@ -24,3 +24,6 @@ config_properties = config['configurations']['config.properties']
 
 daemon_control_script = '/etc/init.d/presto'
 config_directory = '/etc/presto'
+
+memory_configs = ['query.max-memory-per-node', 'query.max-memory',
+                  'task.max-memory']

@@ -20,15 +20,19 @@ import sys
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from package.scripts.presto_coordinator import Coordinator
+from package.scripts.params import memory_configs
 from test_worker import mock_file_descriptor_write_method, \
     collect_config_vars_written_out
+
 
 class TestCoordinator(unittest.TestCase):
 
     dummy_config_properties = {'pseudo.distributed.enabled': 'true',
                                'query.queue-config-file': '',
-                               'http-server.http.port': '8081',
-                               'task.max-memory': '1GB'}
+                               'http-server.http.port': '8081'}
+
+    for memory_config in memory_configs:
+        dummy_config_properties[memory_config] = '123'
 
     def setUp(self):
         self.mock_env = MagicMock()
@@ -121,3 +125,20 @@ class TestCoordinator(unittest.TestCase):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert 'node-scheduler.include-coordinator=true\n' in config
+
+    @patch('package.scripts.presto_coordinator.create_tpch_connector')
+    @patch('package.scripts.params.config_properties', new=dummy_config_properties)
+    def test_memory_settings_have_units(self, create_tpch_connector_mock):
+        config = collect_config_vars_written_out(self.mock_env, Coordinator())
+
+        assert_memory_configs_properly_formatted(config)
+
+
+def assert_memory_configs_properly_formatted(configs_to_test):
+    import re
+    from package.scripts.params import memory_configs
+
+    for memory_config in memory_configs:
+        result = [x for x in configs_to_test \
+                  if re.match(memory_config + '=\d*GB\n', x)]
+        assert len(result) == 1

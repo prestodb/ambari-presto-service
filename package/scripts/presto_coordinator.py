@@ -43,7 +43,7 @@ class Coordinator(Script):
 
     def configure(self, env):
         from params import node_properties, jvm_config, config_properties, \
-            config_directory
+            config_directory, memory_configs
         key_val_template = '{0}={1}\n'
 
         with open(path.join(config_directory, 'node.properties'), 'w') as f:
@@ -62,6 +62,8 @@ class Coordinator(Script):
                 # the user visible equivalent to node-scheduler.include-coordinator
                 if key == 'pseudo.distributed.enabled':
                     continue
+                if key in memory_configs:
+                    value += 'GB'
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('coordinator', 'true'))
             f.write(key_val_template.format('discovery-server.enabled', 'true'))
