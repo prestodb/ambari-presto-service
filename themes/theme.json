@@ -1,17 +1,3 @@
-// -*- coding: utf-8 -*-
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 {
   "name": "default",
   "description": "Default theme for Presto service",
@@ -34,8 +20,6 @@
                   "column-index": "0",
                   "row-span": "1",
                   "column-span": "1",
-                  "section-columns": "1",
-                  "section-rows": "1",
                   "subsections": [
                     {
                       "name": "subsection-node-config",
@@ -51,16 +35,14 @@
                   "display-name": "General Config",
                   "row-index": "0",
                   "column-index": "1",
-                  "row-span": "1",
+                  "row-span": "2",
                   "column-span": "1",
-                  "section-columns": "1",
-                  "section-rows": "1",
                   "subsections": [
                     {
                       "name": "subsection-general-config",
-                      "row-spanw-index": "0",
+                      "row-index": "0",
                       "column-index": "0",
-                      "row-span": "1",
+                      "row-span": "2",
                       "column-span": "1"
                     }
                   ]
@@ -72,18 +54,16 @@
                   "column-index": "0",
                   "row-span": "1",
                   "column-span": "1",
-                  "section-columns": "1",
-                  "section-rows": "1",
                   "subsections": [
                     {
                       "name": "subsection-jvm-config",
-                      "row-spanw-index": "0",
+                      "row-index": "0",
                       "column-index": "0",
                       "row-span": "1",
                       "column-span": "1"
                     }
                   ]
-                } 
+                }
               ]
             }
           }
@@ -228,7 +208,7 @@
       {
         "config": "jvm.config/jvm.config",
         "widget": {
-        "type": "directories"
+          "type": "directories"
         }
       }
     ]
