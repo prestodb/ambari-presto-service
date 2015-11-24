@@ -127,25 +127,25 @@
       {
         "config": "node.properties/node.environment",
         "widget": {
-          "type": "directories"
+          "type": "text-area"
         }
       },
       {
         "config": "node.properties/node.data-dir",
         "widget": {
-          "type": "directories"
+          "type": "directory"
         }
       },
       {
         "config": "node.properties/plugin.config-dir",
         "widget": {
-          "type": "directories"
+          "type": "directory"
         }
       },
       {
         "config": "node.properties/plugin.dir",
         "widget": {
-          "type": "directories"
+          "type": "directory"
         }
       },
       {
@@ -157,7 +157,7 @@
       {
         "config": "config.properties/http-server.http.port",
         "widget": {
-          "type": "directories"
+          "type": "text-area"
         }
       },
       {
@@ -196,7 +196,7 @@
       {
         "config": "config.properties/discovery.uri",
         "widget": {
-          "type": "directories"
+          "type": "text-area"
         }
       },
       {
@@ -208,7 +208,7 @@
       {
         "config": "jvm.config/jvm.config",
         "widget": {
-          "type": "directories"
+          "type": "text-area"
         }
       }
     ]
