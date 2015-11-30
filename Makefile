@@ -44,5 +44,8 @@ test: clean-test
 	tox -- -s tests
 
 dist: clean-build clean-pyc
+ifdef VERSION
+	sed -i 's%<version>.*</version>%<version>$(VERSION)</version>%' metainfo.xml
+endif
 	python setup.py sdist
 	ls -l dist
