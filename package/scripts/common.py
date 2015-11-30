@@ -12,15 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os.path as path
+import os
+import ConfigParser
 
 from resource_management import *
 
-PRESTO_RPM_URL = 'http://sdvl3bdch001.td.teradata.com/RPMs/presto-server-rpm-0.114-1.x86_64.rpm'
+script_dir = os.path.dirname(os.path.realpath(__file__))
+config = ConfigParser.ConfigParser()
+config.readfp(open(os.path.join(script_dir, 'download.ini')))
+
+PRESTO_RPM_URL = config.get('download', 'presto_rpm_url')
 PRESTO_RPM_NAME = PRESTO_RPM_URL.split('/')[-1]
-PRESTO_CLI_URL = 'http://sdvl3bdch001.td.teradata.com/RPMs/presto-cli-0.114-executable.jar'
+PRESTO_CLI_URL = config.get('download', 'presto_cli_url')
 PRESTO_CLI_NAME = PRESTO_CLI_URL.split('/')[-1]
 
 def create_tpch_connector(node_properties):
         Execute('mkdir -p {0}'.format(node_properties['plugin.config-dir']))
-        Execute('echo "connector.name=tpch" > {0}'.format(path.join(node_properties['plugin.config-dir'], 'tpch.properties')))
+        Execute('echo "connector.name=tpch" > {0}'.format(os.path.join(node_properties['plugin.config-dir'], 'tpch.properties')))

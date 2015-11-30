@@ -19,7 +19,7 @@ from common import PRESTO_CLI_URL, PRESTO_CLI_NAME
 
 class Cli(Script):
     def install(self, env):
-        Execute('wget {0} -P /usr/lib/presto/bin'.format(PRESTO_CLI_URL))
+        Execute('wget --no-check-certificate {0} -P /usr/lib/presto/bin'.format(PRESTO_CLI_URL))
         Execute('chmod +x /usr/lib/presto/bin/{0}'.format(PRESTO_CLI_NAME))
         Execute('mv /usr/lib/presto/bin/{0} /usr/lib/presto/bin/presto-cli'.format(PRESTO_CLI_NAME))
 

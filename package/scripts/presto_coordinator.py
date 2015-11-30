@@ -22,7 +22,7 @@ from presto_client import smoketest_presto, PrestoClient
 
 class Coordinator(Script):
     def install(self, env):
-        Execute('wget {0}  -O /tmp/{1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
+        Execute('wget --no-check-certificate {0}  -O /tmp/{1}'.format(PRESTO_RPM_URL, PRESTO_RPM_NAME))
         Execute('rpm -i /tmp/{0}'.format(PRESTO_RPM_NAME))
         self.configure(env)
 

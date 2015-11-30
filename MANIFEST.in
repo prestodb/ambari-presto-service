@@ -4,6 +4,7 @@ include README.md
 include metainfo.xml
 include Makefile
 include requirements.txt
+include package/scripts/download.ini
 
 recursive-include themes *
 recursive-include configuration *
