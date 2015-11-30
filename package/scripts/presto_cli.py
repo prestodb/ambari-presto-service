@@ -14,13 +14,14 @@
 
 from resource_management.libraries.script.script import Script
 from resource_management.core.resources.system import Execute
+from common import PRESTO_CLI_URL, PRESTO_CLI_NAME
 
 
 class Cli(Script):
     def install(self, env):
-        Execute('wget sdvl3bdch001.td.teradata.com/RPMs/presto-cli-0.114-executable.jar -P /usr/lib/presto/bin')
-        Execute('chmod +x /usr/lib/presto/bin/presto-cli-0.114-executable.jar')
-        Execute('mv /usr/lib/presto/bin/presto-cli-0.114-executable.jar /usr/lib/presto/bin/presto-cli')
+        Execute('wget {0} -P /usr/lib/presto/bin'.format(PRESTO_CLI_URL))
+        Execute('chmod +x /usr/lib/presto/bin/{0}'.format(PRESTO_CLI_NAME))
+        Execute('mv /usr/lib/presto/bin/{0} /usr/lib/presto/bin/presto-cli'.format(PRESTO_CLI_NAME))
 
     def status(self, env):
         pass

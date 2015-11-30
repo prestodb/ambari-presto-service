@@ -17,7 +17,9 @@ import os.path as path
 from resource_management import *
 
 PRESTO_RPM_URL = 'http://sdvl3bdch001.td.teradata.com/RPMs/presto-server-rpm-0.114-1.x86_64.rpm'
-PRESTO_RPM_NAME = 'presto-server-rpm.x86_64.rpm'
+PRESTO_RPM_NAME = PRESTO_RPM_URL.split('/')[-1]
+PRESTO_CLI_URL = 'http://sdvl3bdch001.td.teradata.com/RPMs/presto-cli-0.114-executable.jar'
+PRESTO_CLI_NAME = PRESTO_CLI_URL.split('/')[-1]
 
 def create_tpch_connector(node_properties):
         Execute('mkdir -p {0}'.format(node_properties['plugin.config-dir']))
