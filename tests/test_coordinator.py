@@ -83,9 +83,10 @@ class TestCoordinator(unittest.TestCase):
         presto_coordinator.start(self.mock_env)
         assert configure_mock.called
 
+    @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
-    def test_configure_adds_tpch_connector(self, create_tpch_connector_mock):
+    def test_configure_adds_tpch_connector(self, create_tpch_connector_mock, create_connectors_mock):
         presto_coordinator = Coordinator()
         open_mock = mock_open()
 
@@ -94,53 +95,59 @@ class TestCoordinator(unittest.TestCase):
 
         assert create_tpch_connector_mock.called
 
+    @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     @patch('package.scripts.presto_coordinator.smoketest_presto')
     @patch('package.scripts.presto_coordinator.Coordinator.configure')
     @patch('package.scripts.presto_coordinator.Execute')
     def test_start_smoketests_presto(
-            self, execute_mock, unused_configure_mock, smoketest_presto_mock):
+            self, execute_mock, unused_configure_mock, smoketest_presto_mock, create_connectors_mock):
         presto_coordinator = Coordinator()
 
         presto_coordinator.start(self.mock_env)
 
         assert smoketest_presto_mock.called
 
+    @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=minimal_config_properties)
-    def test_assert_constant_properties(self, create_tpch_connector_mock):
+    def test_assert_constant_properties(self, create_tpch_connector_mock, create_connectors_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert 'discovery-server.enabled=true\n' in config
         assert 'coordinator=true\n' in config
         assert 'node.data-dir=/var/lib/presto\n'
 
+    @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_configure_ignore_empty_queue_config_file(self, create_tpch_connector_mock):
+    def test_configure_ignore_empty_queue_config_file(self, create_tpch_connector_mock, create_connectors_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         for item in config:
             assert not item.startswith('query.queue-config-file')
 
+    @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_configure_pseudo_distributed(self, create_tpch_connector_mock):
+    def test_configure_pseudo_distributed(self, create_tpch_connector_mock, create_connectors_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert 'node-scheduler.include-coordinator=true\n' in config
 
+    @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_memory_settings_have_units(self, create_tpch_connector_mock):
+    def test_memory_settings_have_units(self, create_tpch_connector_mock, create_connectos_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert_memory_configs_properly_formatted(config)
 
+    @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.params.host_info', new={'presto_worker_hosts': ['slave1']})
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_pseudo_distributed_topology_enforced(self, create_tpch_connector_mock):
+    def test_pseudo_distributed_topology_enforced(self, create_tpch_connector_mock, create_connectors_mock):
         TestCase.assertRaises(self, RuntimeError, collect_config_vars_written_out, self.mock_env, Coordinator())
 
 def assert_memory_configs_properly_formatted(configs_to_test):

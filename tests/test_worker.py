@@ -76,8 +76,9 @@ class TestWorker(unittest.TestCase):
         presto_worker.start(self.mock_env)
         assert configure_mock.called
 
+    @patch('package.scripts.presto_worker.create_connectors')
     @patch('package.scripts.presto_worker.create_tpch_connector')
-    def test_configure_adds_tpch_connector(self, create_tpch_connector_mock):
+    def test_configure_adds_tpch_connector(self, create_tpch_connector_mock, create_connectors_mock):
         presto_worker = Worker()
 
         with patch('__builtin__.open'):
@@ -85,32 +86,39 @@ class TestWorker(unittest.TestCase):
 
         assert create_tpch_connector_mock.called
 
+    @patch('package.scripts.presto_worker.create_connectors')
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_configure_ignore_pseudo_distribute_enabled_property(self, create_tpch_connector_mock):
+    def test_configure_ignore_pseudo_distribute_enabled_property(self, create_tpch_connector_mock,
+            create_connectors_mock ):
         config = collect_config_vars_written_out(self.mock_env, Worker())
 
         assert 'pseudo.distributed.enabled=true\n' not in config
 
+    @patch('package.scripts.presto_worker.create_connectors')
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_configure_ignore_empty_queue_config_file(self, create_tpch_connector_mock):
+    def test_configure_ignore_empty_queue_config_file(self, create_tpch_connector_mock,
+            create_connectors_mock):
         config = collect_config_vars_written_out(self.mock_env, Worker())
 
         for item in config:
             assert not item.startswith('query.queue-config-file')
 
+    @patch('package.scripts.presto_worker.create_connectors')
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=minimal_config_properties)
-    def test_constant_properties(self, create_tpch_connector_mock):
+    def test_constant_properties(self, create_tpch_connector_mock,
+            create_connectors_mock):
         config = collect_config_vars_written_out(self.mock_env, Worker())
 
         assert 'coordinator=false\n' in config
         assert 'node.data-dir=/var/lib/presto\n' in config
 
+    @patch('package.scripts.presto_worker.create_connectors')
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_memory_settings_have_units(self, create_tpch_connector_mock):
+    def test_memory_settings_have_units(self, create_tpch_connector_mock, create_connectors_mock):
         from test_coordinator import assert_memory_configs_properly_formatted
 
         config = collect_config_vars_written_out(self.mock_env, Worker())

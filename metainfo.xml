@@ -68,6 +68,7 @@
         <config-type>node.properties</config-type>
         <config-type>config.properties</config-type>
         <config-type>jvm.config</config-type>
+        <config-type>connectors.properties</config-type>
       </configuration-dependencies>
 
       <themes>

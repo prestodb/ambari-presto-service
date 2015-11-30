@@ -11,7 +11,7 @@
             "display-name": "Settings",
             "layout": {
               "tab-columns": "2",
-              "tab-rows": "2",
+              "tab-rows": "3",
               "sections": [
                 {
                   "name": "section-node-config",
@@ -35,14 +35,32 @@
                   "display-name": "General Config",
                   "row-index": "0",
                   "column-index": "1",
-                  "row-span": "2",
+                  "row-span": "3",
                   "column-span": "1",
                   "subsections": [
                     {
                       "name": "subsection-general-config",
                       "row-index": "0",
                       "column-index": "0",
-                      "row-span": "2",
+                      "row-span": "3",
+                      "column-span": "1"
+                    }
+                  ]
+                },
+
+                {
+                  "name": "section-connector-config",
+                  "display-name": "Connectors",
+                  "row-index": "1",
+                  "column-index": "0",
+                  "row-span": "1",
+                  "column-span": "1",
+                  "subsections": [
+                    {
+                      "name": "subsection-connector-config",
+                      "row-index": "0",
+                      "column-index": "0",
+                      "row-span": "1",
                       "column-span": "1"
                     }
                   ]
@@ -50,7 +68,7 @@
                 {
                   "name": "section-jvm-config",
                   "display-name": "JVM Config",
-                  "row-index": "1",
+                  "row-index": "2",
                   "column-index": "0",
                   "row-span": "1",
                   "column-span": "1",
@@ -84,6 +102,10 @@
         {
           "config": "node.properties/plugin.dir",
           "subsection-name": "subsection-node-config"
+        },
+        {
+          "config": "connectors.properties/connectors.to.add",
+          "subsection-name": "subsection-connector-config"
         },
         {
           "config": "config.properties/node-scheduler.include-coordinator",
@@ -136,6 +158,12 @@
         "config": "node.properties/plugin.dir",
         "widget": {
           "type": "directory"
+        }
+      },
+      {
+        "config": "connectors.properties/connectors.to.add",
+        "widget": {
+          "type": "text-area"
         }
       },
       {

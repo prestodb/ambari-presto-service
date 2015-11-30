@@ -13,9 +13,10 @@
 # limitations under the License.
 
 import os
+import ast
 import ConfigParser
 
-from resource_management import *
+from resource_management.core.resources.system import Execute
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
 config = ConfigParser.ConfigParser()
@@ -27,5 +28,16 @@ PRESTO_CLI_URL = config.get('download', 'presto_cli_url')
 PRESTO_CLI_NAME = PRESTO_CLI_URL.split('/')[-1]
 
 def create_tpch_connector(node_properties):
-        Execute('mkdir -p {0}'.format(node_properties['plugin.config-dir']))
-        Execute('echo "connector.name=tpch" > {0}'.format(os.path.join(node_properties['plugin.config-dir'], 'tpch.properties')))
+    Execute('mkdir -p {0}'.format(node_properties['plugin.config-dir']))
+    Execute('echo "connector.name=tpch" > {0}'.format(os.path.join(node_properties['plugin.config-dir'], 'tpch.properties')))
+
+def create_connectors(node_properties, connectors_to_add):
+    if not connectors_to_add:
+        return
+    Execute('mkdir -p {0}'.format(node_properties['plugin.config-dir']))
+    connectors_dict = ast.literal_eval(connectors_to_add)
+    for connector in connectors_dict:
+        connector_file = os.path.join(node_properties['plugin.config-dir'], connector + '.properties')
+        with open(connector_file, 'w') as f:
+            for lineitem in connectors_dict[connector]:
+                f.write('{0}\n'.format(lineitem))
