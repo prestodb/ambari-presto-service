@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import socket
+import uuid
 import os.path as path
 
 from resource_management.libraries.script.script import Script
@@ -54,7 +54,7 @@ class Coordinator(Script):
         with open(path.join(config_directory, 'node.properties'), 'w') as f:
             for key, value in node_properties.iteritems():
                 f.write(key_val_template.format(key, value))
-            f.write(key_val_template.format('node.id', socket.gethostname()))
+            f.write(key_val_template.format('node.id', str(uuid.uuid4())))
 
         with open(path.join(config_directory, 'jvm.config'), 'w') as f:
             f.write(jvm_config['jvm.config'])

@@ -89,7 +89,7 @@ def ensure_nodes_are_up(client, all_hosts):
         nodes_returned_from_presto = []
         for row in client.get_rows():
             nodes_returned_from_presto.append(row[0])
-        if set(nodes_returned_from_presto) == set(all_hosts):
+        if len(nodes_returned_from_presto) == len(all_hosts):
             are_expected_nodes_up = True
             break
         else:
