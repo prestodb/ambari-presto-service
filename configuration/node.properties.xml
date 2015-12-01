@@ -25,9 +25,12 @@
     </description>
   </property>
 
+<!-- User should not be allowed to set this until https://github.com/facebook/presto/issues/4063
+has been fixed. Up until then please exclude this from the theme.json enhanced configs.
+-->
   <property>
     <name>node.data-dir</name>
-    <value>/var/data/presto</value>
+    <value>/var/lib/presto</value>
     <description>
       The location (filesystem path) of the data directory. Presto will store
       logs and other data here.

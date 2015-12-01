@@ -78,10 +78,6 @@
           "subsection-name": "subsection-node-config"
         },
         {
-          "config": "node.properties/node.data-dir",
-          "subsection-name": "subsection-node-config"
-        },
-        {
           "config": "node.properties/plugin.config-dir",
           "subsection-name": "subsection-node-config"
         },
@@ -128,12 +124,6 @@
         "config": "node.properties/node.environment",
         "widget": {
           "type": "text-area"
-        }
-      },
-      {
-        "config": "node.properties/node.data-dir",
-        "widget": {
-          "type": "directory"
         }
       },
       {
