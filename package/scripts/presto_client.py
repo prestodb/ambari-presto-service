@@ -96,12 +96,12 @@ def ensure_nodes_are_up(client, all_hosts):
             time.sleep(SLEEP_INTERVAL)
             _LOGGER.debug('Elapsed time {0}'.format(elapsed_time))
             _LOGGER.debug(
-                'Error comparing hosts returned from Presto {0} and hosts specified by user {1}'.format(
+                'Number of hosts returned from Presto {0} do not match number of hosts specified by user {1}'.format(
                 nodes_returned_from_presto, all_hosts))
             elapsed_time += SLEEP_INTERVAL
     if not are_expected_nodes_up:
         raise RuntimeError(
-                'Hosts returned from Presto {0} do not equal hosts specified by user {1}'.format(
+                'Number of hosts returned from Presto {0} do not equal the number of hosts specified by user {1}'.format(
                 nodes_returned_from_presto, all_hosts))
 
 # This class was copied more or less verbatim from
