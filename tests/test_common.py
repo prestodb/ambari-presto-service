@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from unittest import TestCase
-from mock import patch
+from mock import patch, call
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
@@ -39,7 +39,7 @@ class TestCommonCode(TestCase):
         assert not connector_properties_written_out
 
     @patch('package.scripts.common.Execute')
-    def test_add_connector(self, execute_mock):
+    def test_add_connector(self, unused_execute_mock):
         from package.scripts.common import create_connectors
         
         connector_properties = "{'hive': ['key1=value1', 'key2=value2']}"
@@ -48,6 +48,27 @@ class TestCommonCode(TestCase):
             create_connectors, self.node_properties, connector_properties)
 
         assert connector_properties_written_out == ['key1=value1\n', 'key2=value2\n']
+
+    @patch('package.scripts.common.Execute')
+    def test_no_connectors_to_delete(self, execute_mock):
+        from package.scripts.common import delete_connectors
+
+        delete_connectors(self.node_properties, '')
+
+        assert not execute_mock.called
+
+        delete_connectors(self.node_properties, '{}')
+
+        assert not execute_mock.called
+
+    @patch('package.scripts.common.Execute')
+    def test_delete_connector(self, execute_mock):
+        from package.scripts.common import delete_connectors
+
+        delete_connectors(self.node_properties, "['connector1', 'connector2']")
+
+        assert execute_mock.call_args_list == [call('rm -f /does/not/exist/connector1.properties'),
+                                               call('rm -f /does/not/exist/connector2.properties')]
 
 def collect_connector_properties_written_out(
         create_connectors_method, node_properties, connectors_properties):

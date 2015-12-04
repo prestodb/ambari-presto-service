@@ -21,7 +21,9 @@ config = Script.get_config()
 node_properties = config['configurations']['node.properties']
 jvm_config = config['configurations']['jvm.config']
 config_properties = config['configurations']['config.properties']
+
 connectors_to_add = config['configurations']['connectors.properties']['connectors.to.add']
+connectors_to_delete = config['configurations']['connectors.properties']['connectors.to.delete']
 
 daemon_control_script = '/etc/init.d/presto'
 config_directory = '/etc/presto'

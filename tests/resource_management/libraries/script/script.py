@@ -9,5 +9,5 @@ class Script(object):
                 {'node.properties': {},
                  'jvm.config': {'jvm.config': ''},
                  'config.properties': {},
-                 'connectors.properties': {'connectors.to.add': '{}'}},
+                 'connectors.properties': {'connectors.to.add': '{}', 'connectors.to.delete': '{}'}},
                  'clusterHostInfo': {'presto_worker_hosts': [], 'presto_coordinator_hosts': []}}

@@ -47,7 +47,6 @@
                     }
                   ]
                 },
-
                 {
                   "name": "section-connector-config",
                   "display-name": "Connectors",
@@ -108,6 +107,10 @@
           "subsection-name": "subsection-connector-config"
         },
         {
+          "config": "connectors.properties/connectors.to.delete",
+          "subsection-name": "subsection-connector-config"
+        },
+        {
           "config": "config.properties/node-scheduler.include-coordinator",
           "subsection-name": "subsection-general-config"
         },
@@ -162,6 +165,12 @@
       },
       {
         "config": "connectors.properties/connectors.to.add",
+        "widget": {
+          "type": "text-area"
+        }
+      },
+      {
+        "config": "connectors.properties/connectors.to.delete",
         "widget": {
           "type": "text-area"
         }

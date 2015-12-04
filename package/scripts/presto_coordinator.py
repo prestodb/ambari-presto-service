@@ -17,7 +17,8 @@ import os.path as path
 
 from resource_management.libraries.script.script import Script
 from resource_management.core.resources.system import Execute
-from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME, create_connectors
+from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME, create_connectors,\
+    delete_connectors
 from presto_client import smoketest_presto, PrestoClient
 
 class Coordinator(Script):
@@ -48,7 +49,7 @@ class Coordinator(Script):
 
     def configure(self, env):
         from params import node_properties, jvm_config, config_properties, \
-            config_directory, memory_configs, host_info, connectors_to_add
+            config_directory, memory_configs, host_info, connectors_to_add, connectors_to_delete
         key_val_template = '{0}={1}\n'
 
         with open(path.join(config_directory, 'node.properties'), 'w') as f:
@@ -81,6 +82,7 @@ class Coordinator(Script):
                     'node-scheduler.include-coordinator', 'true'))
 
         create_connectors(node_properties, connectors_to_add)
+        delete_connectors(node_properties, connectors_to_delete)
         create_tpch_connector(node_properties)
 
 
