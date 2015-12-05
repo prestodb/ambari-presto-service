@@ -27,7 +27,6 @@
 
 <!-- User should not be allowed to set this until https://github.com/facebook/presto/issues/4063
 has been fixed. Up until then please exclude this from the theme.json enhanced configs.
--->
   <property>
     <name>node.data-dir</name>
     <value>/var/lib/presto</value>
@@ -36,6 +35,7 @@ has been fixed. Up until then please exclude this from the theme.json enhanced c
       logs and other data here.
     </description>
   </property>
+-->
 
   <property>
     <name>plugin.config-dir</name>
