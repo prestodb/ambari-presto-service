@@ -32,6 +32,8 @@ class TestCoordinator(unittest.TestCase):
                                'query.queue-config-file': '',
                                'http-server.http.port': '8081'}
 
+    minimal_config_properties = {'pseudo.distributed.enabled': 'true'}
+
     for memory_config in memory_configs:
         dummy_config_properties[memory_config] = '123'
 
@@ -105,12 +107,13 @@ class TestCoordinator(unittest.TestCase):
         assert smoketest_presto_mock.called
 
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
-    @patch('package.scripts.params.config_properties', new=dummy_config_properties)
+    @patch('package.scripts.params.config_properties', new=minimal_config_properties)
     def test_assert_constant_properties(self, create_tpch_connector_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert 'discovery-server.enabled=true\n' in config
         assert 'coordinator=true\n' in config
+        assert 'node.data-dir=/var/lib/presto\n'
 
     @patch('package.scripts.presto_coordinator.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)

@@ -27,6 +27,9 @@
 
 <!-- User should not be allowed to set this until https://github.com/facebook/presto/issues/4063
 has been fixed. Up until then please exclude this from the theme.json enhanced configs.
+When this property is re-introduced, make sure to edit presto_coordinator.py and
+presto_worker.py to no longer hard code node.data-dir but instead pick it up from
+node.properties.xml
   <property>
     <name>node.data-dir</name>
     <value>/var/lib/presto</value>

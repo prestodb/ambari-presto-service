@@ -48,6 +48,7 @@ class Worker(Script):
             for key, value in node_properties.iteritems():
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('node.id', str(uuid.uuid4())))
+            f.write(key_val_template.format('node.data-dir', '/var/lib/presto'))
 
         with open(path.join(config_directory, 'jvm.config'), 'w') as f:
             f.write(jvm_config['jvm.config'])

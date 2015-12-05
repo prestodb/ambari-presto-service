@@ -29,6 +29,8 @@ class TestWorker(unittest.TestCase):
                                'query.queue-config-file': '',
                                'http-server.http.port': '8081'}
 
+    minimal_config_properties = {'pseudo.distributed.enabled': 'true'}
+
     for memory_config in memory_configs:
         dummy_config_properties[memory_config] = '123'
 
@@ -99,11 +101,12 @@ class TestWorker(unittest.TestCase):
             assert not item.startswith('query.queue-config-file')
 
     @patch('package.scripts.presto_worker.create_tpch_connector')
-    @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_config_properties_coordinator_always_false(self, create_tpch_connector_mock):
+    @patch('package.scripts.params.config_properties', new=minimal_config_properties)
+    def test_constant_properties(self, create_tpch_connector_mock):
         config = collect_config_vars_written_out(self.mock_env, Worker())
 
         assert 'coordinator=false\n' in config
+        assert 'node.data-dir=/var/lib/presto\n' in config
 
     @patch('package.scripts.presto_worker.create_tpch_connector')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
