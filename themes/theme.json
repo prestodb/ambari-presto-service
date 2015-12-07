@@ -119,10 +119,6 @@
           "subsection-name": "subsection-general-config"
         },
         {
-          "config": "config.properties/task.max-memory",
-          "subsection-name": "subsection-general-config"
-        },
-        {
           "config": "config.properties/query.max-memory",
           "subsection-name": "subsection-general-config"
         },
@@ -185,17 +181,6 @@
         "config": "config.properties/http-server.http.port",
         "widget": {
           "type": "text-area"
-        }
-      },
-      {
-        "config": "config.properties/task.max-memory",
-        "widget": {
-          "type": "slider",
-          "units": [
-            {
-              "unit-name": "GB"
-            }
-          ]
         }
       },
       {
