@@ -1,19 +1,29 @@
 # ambari-presto-service
 
-**Note: the integration code in this repo is still a work in progress. It may be lacking certain integration features and at times may break. Use at your own risk.**
+This repository contains code and configuration needed to integrate [Presto](https://prestodb.io/) with [Ambari](https://ambari.apache.org/). The integration packages allows you to:
 
-This repo contains code and configuration needed to integrate [Presto](https://prestodb.io/) with [Ambari](https://ambari.apache.org/). Once you've deployed the integration code (for more details on this see [Integration instructions for users](#iifu)), you'll be able to do the following:
+1. Install and deploy Presto on your cluster from the Ambari UI.
+2. Change Presto configuration options via the Ambari UI.
 
-1. Install and deploy Presto to your cluster from the Ambari UI.
-2. Configure all aspects of Presto via the Ambari UI.
-3. Have dashboard access to some critical Presto and kernel level metrics.
+# Table of contents
 
-## Requirements
+* [Getting Started](#getting-started)
+  * [Requirements for integration](#requirements-for-integration)
+  * [Integration steps](#integration-steps)
+* [Developers](#developers)
+  * [Requirements for development](#requirements-for-development)
+  * [Definitions](#definitions)
+  * [Information on integrating services with Ambari](#information-on-integrating-services-with-ambari)
+  * [Build](#build)
 
-1. Python 2.6/2.7.
-2. Make.
+# Getting Started
 
-## <a name="iifu"></a>Integration instructions for users
+## Requirements for integration
+
+1. You must have Ambari installed and thus transitively fulfill [Ambari's requirements](http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.2.1/bk_Installing_HDP_AMB/content/_meet_minimum_system_requirements.html).
+2. Oracle Java JDK 1.8 (64-bit).
+
+## Integration steps
 
 Unfortunately, at the moment Ambari does not support a more user friendly installation method. The installation has to be done by following the somewhat manual steps outlined below.
 
@@ -28,7 +38,16 @@ ambari-server restart
 ```
 4. Once the server has restarted, point your browser to it and on the main Ambari Web UI page click the `Add Service` button and follow the on screen wizard to add Presto.
 
-## For developers
+# Developers
+
+## Requirements for development
+
+1. Python 2.6/2.7.
+2. [pip](https://pip.pypa.io/en/stable/installing/).
+3. [make](https://www.gnu.org/software/make/).
+4. `pip install -r $(REPO_ROOT_DIR)/requirements.txt`.
+
+## Definitions
 
 The following definitions, taken from the [Apache Ambari wiki](https://cwiki.apache.org/confluence/display/AMBARI/Stacks+and+Services), are useful when talking about integration:
 
@@ -36,9 +55,13 @@ The following definitions, taken from the [Apache Ambari wiki](https://cwiki.apa
 2. Service - Defines the Components (MASTER, SLAVE, CLIENT) that make up the Service. For example, Service = HDFS.
 3. Component - The individual Components that adhere to a certain defined lifecycle (start, stop, install, etc). For example, Service = HDFS has Components = NameNode (MASTER), Secondary NameNode (MASTER), DataNode (SLAVE) and HDFS Client (CLIENT).
 
+## Information on integrating services with Ambari
+
 For more information on developing service integration code for Ambari, the following resources might be helpful:
 1. [Webcast](http://hortonworks.com/partners/learn/#ambari) with Hortonworks engineers about integrating with Ambari. Includes slides and recorded video/audio of the talk.
 2. Lots of [integration examples](https://github.com/abajwa-hw/ambari-workshops).
+
+## Build
 
 The build system for this project is very simple: we use Python's standard [distutils](https://docs.python.org/2/distutils/) module. We wrap calls to the `setup.py` script with a Makefile to make common actions even simpler. To build the distribution execute `make dist`, to run the unit tests execute `make test` and to get more information on the other availabel targets execute `make help`.
 
