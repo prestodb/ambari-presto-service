@@ -9,12 +9,19 @@ This repository contains code and configuration needed to integrate [Presto](htt
 
 * [Getting Started](#getting-started)
   * [Requirements for integration](#requirements-for-integration)
-  * [Integration steps](#integration-steps)
+  * [Adding the Presto service](#adding-the-presto-service)
+  * [Supported topologies](#supported-topologies)
+    * [Pseudo-distributed](#pseudo-distributed)
+    * [Distributed](#distributed)
+  * [Configuring Presto](#configuring-presto)
+    * [Adding and removing connectors](#adding-and-removing-connectors)
+    * [Adding and removing unlisted properties](#adding-and-removing-unlisted-properties)
+* [Getting help](#getting-help)
 * [Developers](#developers)
   * [Requirements for development](#requirements-for-development)
   * [Definitions](#definitions)
   * [Information on integrating services with Ambari](#information-on-integrating-services-with-ambari)
-  * [Build](#build)
+  * [Build and custom distributions](#build-and-custome-distributions)
 
 # Getting Started
 
@@ -23,7 +30,7 @@ This repository contains code and configuration needed to integrate [Presto](htt
 1. You must have Ambari installed and thus transitively fulfill [Ambari's requirements](http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.2.1/bk_Installing_HDP_AMB/content/_meet_minimum_system_requirements.html).
 2. Oracle Java JDK 1.8 (64-bit).
 
-## Integration steps
+## Adding the Presto service
 
 Unfortunately, at the moment Ambari does not support a more user friendly installation method. The installation has to be done by following the somewhat manual steps outlined below.
 
@@ -37,6 +44,20 @@ chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.2/services/PRESTO/*
 ambari-server restart
 ```
 4. Once the server has restarted, point your browser to it and on the main Ambari Web UI page click the `Add Service` button and follow the on screen wizard to add Presto.
+
+## Supported topologies
+
+### Pseudo-distributed
+
+### Distributed
+
+## Configuring Presto
+
+### Adding and removing connectors
+
+### Adding and removing unlisted properties
+
+# Getting help
 
 # Developers
 
@@ -61,7 +82,7 @@ For more information on developing service integration code for Ambari, the foll
 1. [Webcast](http://hortonworks.com/partners/learn/#ambari) with Hortonworks engineers about integrating with Ambari. Includes slides and recorded video/audio of the talk.
 2. Lots of [integration examples](https://github.com/abajwa-hw/ambari-workshops).
 
-## Build
+## Build and custom distributions
 
 The build system for this project is very simple: we use Python's standard [distutils](https://docs.python.org/2/distutils/) module. We wrap calls to the `setup.py` script with a Makefile to make common actions even simpler. To build the distribution execute `make dist`, to run the unit tests execute `make test` and to get more information on the other availabel targets execute `make help`.
 
