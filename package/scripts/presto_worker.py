@@ -17,7 +17,7 @@ import os.path as path
 
 from resource_management.libraries.script.script import Script
 from resource_management.core.resources.system import Execute
-from common import create_tpch_connector, PRESTO_RPM_URL, PRESTO_RPM_NAME, create_connectors, \
+from common import PRESTO_RPM_URL, PRESTO_RPM_NAME, create_connectors, \
     delete_connectors
 
 
@@ -67,7 +67,9 @@ class Worker(Script):
 
         create_connectors(node_properties, connectors_to_add)
         delete_connectors(node_properties, connectors_to_delete)
-        create_tpch_connector(node_properties)
+        # This is a separate call because we always want the tpch connector to
+        # be available because it is used to smoketest the installation.
+        create_connectors(node_properties, "{'tpch': ['connector.name=tpch']}")
 
 if __name__ == '__main__':
     Worker().execute()

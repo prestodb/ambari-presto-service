@@ -27,10 +27,6 @@ PRESTO_RPM_NAME = PRESTO_RPM_URL.split('/')[-1]
 PRESTO_CLI_URL = config.get('download', 'presto_cli_url')
 PRESTO_CLI_NAME = PRESTO_CLI_URL.split('/')[-1]
 
-def create_tpch_connector(node_properties):
-    Execute('mkdir -p {0}'.format(node_properties['plugin.config-dir']))
-    Execute('echo "connector.name=tpch" > {0}'.format(os.path.join(node_properties['plugin.config-dir'], 'tpch.properties')))
-
 def create_connectors(node_properties, connectors_to_add):
     if not connectors_to_add:
         return
