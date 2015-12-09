@@ -36,8 +36,11 @@ class Coordinator(Script):
             host_info
         self.configure(env)
         Execute('{0} start'.format(daemon_control_script))
-        all_hosts = host_info['presto_worker_hosts'] + \
-            host_info['presto_coordinator_hosts']
+        if 'presto_worker_hosts' in host_info.keys():
+            all_hosts = host_info['presto_worker_hosts'] + \
+                host_info['presto_coordinator_hosts']
+        else:
+            all_hosts = host_info['presto_coordinator_hosts']
         smoketest_presto(
             PrestoClient('localhost','root',
                          config_properties['http-server.http.port']),
@@ -74,10 +77,10 @@ class Coordinator(Script):
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('coordinator', 'true'))
             f.write(key_val_template.format('discovery-server.enabled', 'true'))
-            if config_properties['pseudo.distributed.enabled']:
-                if host_info['presto_worker_hosts']:
-                    raise RuntimeError('You cannot specify worker nodes '
-                        'in pseudo distributed mode')
+            if (config_properties['pseudo.distributed.enabled'] == 'true'
+                and 'presto_worker_hosts' in host_info.keys()):
+                raise RuntimeError('You cannot specify worker nodes in pseudo distributed mode')
+            elif config_properties['pseudo.distributed.enabled'] == 'true':
                 f.write(key_val_template.format(
                     'node-scheduler.include-coordinator', 'true'))
 
