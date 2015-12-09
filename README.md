@@ -56,9 +56,21 @@ $ ambari-server restart
 
 ## Supported topologies
 
+The following two screens will allow you to assign the Presto processes among the nodes in your cluster.
+
+Presto is composed of a coordinator and worker processes. The same code runs all nodes because the same Presto server RPM is installed for both workers and coordinator. It is the configuration on each node that determines how a particular node will behave. Presto can run in pseudo-distributed mode, where a single Presto process on one node acts as both coordinator and worker, or in distributed mode, where the Presto coordinator runs on one node and the Presto workers run on other nodes.
+
+The client component of Presto is the `presto-cli` executable JAR. You should place it on all nodes where you expect to access the Presto server via this command line utility. The `presto-cli` executable JAR does not need to be co-located with either a worker or a coordinator, it can be installed on its own. Once installed, the CLI can be found at `/usr/lib/presto/bin/presto-cli`.
+
+*Do not place a worker on the same node as a coordinator.* Such an attempt will fail the installation because the integration software will attempt to install the RPM twice. In order to schedule work on the Presto coordinator, effectively turning the process into a dual worker/coordinator, please enable the `node-scheduler.include-coordinator` toggle available in the configuration screen.
+
 ### Pseudo-distributed
 
+Pick a node for the Presto coordinator and *do not assign any Presto workers*. On the configuration screen that follows, you must also enable pseudo-distributed mode by clicking the toggle. If you assign Presto workers to nodes and enable the pseudo-distributed toggle, the installation will fail.
+
 ### Distributed
+
+Pick a node for the Presto coordinator and assign as many Presto workers to nodes as you'd like. Feel free to also place the client component on any node. Remember to not place a worker on the same node as a coordinator.
 
 ## Configuring Presto
 
