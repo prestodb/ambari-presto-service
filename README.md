@@ -28,22 +28,31 @@ This repository contains code and configuration needed to integrate [Presto](htt
 ## Requirements for integration
 
 1. You must have Ambari installed and thus transitively fulfill [Ambari's requirements](http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.2.1/bk_Installing_HDP_AMB/content/_meet_minimum_system_requirements.html).
-2. Oracle Java JDK 1.8 (64-bit).
+2. Oracle Java JDK 1.8 (64-bit). Note that when installing Ambari you will be prompted to pick a JDK. You can tell Ambari to download Oracle JDK 1.8 or point it to an existing installation. Presto picks up whatever JDK Ambari was installed with so it is imperative that Ambari is running on Oracle JDK 1.8.
 
 ## Adding the Presto service
 
-Unfortunately, at the moment Ambari does not support a more user friendly installation method. The installation has to be done by following the somewhat manual steps outlined below.
+This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari.
 
-1. Create the distribution by executing `make clean dist`. This will create a `tar.gz` in the dist directory. This file is the distribution you'll need to upload to your cluster.
-2. Upload the distribution archive to the node in your cluster that runs the Ambari master server.
-3. Assuming that `ambari-server` is installed in `/var/lib/ambari-server`, you should execute the following:
+Unfortunately, at the moment Ambari does not support a more user friendly installation method and the installation has to be done by following the somewhat manual steps outlined below.
+
+1. Assuming HDP 2.3 was installed with Ambari, create the following directory on the node where the `ambari-server` is running:
+```bash
+$ mkdir /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+$ cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 ```
-mkdir /var/lib/ambari-server/resources/stacks/HDP/2.2/services/PRESTO
-tar -xvf ambari-presto-0.1.0.linux-x86_64.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.2/services/PRESTO
-chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.2/services/PRESTO/*
-ambari-server restart
+2. Place the integration files within the newly created PRESTO directory. Download the integration package from [here](https://s3-us-west-2.amazonaws.com/ambari-installation/ambari-presto-0.1.0.tar.gz) (TODO: swap in Teradata link), upload it to your cluster and extract it like so:
+```bash
+$ tar -xvf /path/to/integration/package/ambari-presto-0.1.0.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+$ mv /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-0.1.0/* /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+$ rm -f /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-0.1.0
 ```
-4. Once the server has restarted, point your browser to it and on the main Ambari Web UI page click the `Add Service` button and follow the on screen wizard to add Presto.
+3. Finally, make all integration files executable and restart the Ambari server:
+```bash
+$ chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.2/services/PRESTO/*
+$ ambari-server restart
+```
+4. Once the server has restarted, point your browser to it and on the main Ambari Web UI page click the `Add Service` button and follow the on screen wizard to add Presto. The following sections provide more details on the options and choices you will make when adding Presto.
 
 ## Supported topologies
 
