@@ -28,13 +28,16 @@ from test_worker import mock_file_descriptor_write_method, \
 
 class TestCoordinator(unittest.TestCase):
 
-    dummy_config_properties = {'pseudo.distributed.enabled': 'false',
+    dummy_config_properties = {'pseudo.distributed.enabled': False,
                                'query.queue-config-file': '',
-                               'http-server.http.port': '8081'}
+                               'http-server.http.port': '8081',
+                               'node-scheduler.include-coordinator': True}
 
-    pseudo_distributed_config_properties = {'pseudo.distributed.enabled': 'true'}
+    pseudo_distributed_config_properties = {'pseudo.distributed.enabled': True,
+                                            'node-scheduler.include-coordinator': False}
 
-    minimal_config_properties = {'pseudo.distributed.enabled': 'false'}
+    minimal_config_properties = {'pseudo.distributed.enabled': False,
+                                 'node-scheduler.include-coordinator': False}
 
     for memory_config in memory_configs:
         dummy_config_properties[memory_config] = '123'
@@ -134,6 +137,13 @@ class TestCoordinator(unittest.TestCase):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert 'node-scheduler.include-coordinator=true\n' in config
+
+    @patch('package.scripts.presto_coordinator.create_connectors')
+    @patch('package.scripts.params.config_properties', new=dummy_config_properties)
+    def test_user_set_coordinator_as_worker(self, create_connectors_mock):
+        config = collect_config_vars_written_out(self.mock_env, Coordinator())
+
+        assert 'node-scheduler.include-coordinator=True\n' in config
 
     @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)

@@ -25,11 +25,13 @@ from package.scripts.params import memory_configs
 
 class TestWorker(unittest.TestCase):
 
-    dummy_config_properties = {'pseudo.distributed.enabled': 'false',
+    dummy_config_properties = {'pseudo.distributed.enabled': False,
                                'query.queue-config-file': '',
-                               'http-server.http.port': '8081'}
+                               'http-server.http.port': '8081',
+                               'node-scheduler.include-coordinator': False}
 
-    minimal_config_properties = {'pseudo.distributed.enabled': 'false'}
+    minimal_config_properties = {'pseudo.distributed.enabled': False,
+                                 'node-scheduler.include-coordinator': False}
 
     for memory_config in memory_configs:
         dummy_config_properties[memory_config] = '123'
