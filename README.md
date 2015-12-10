@@ -15,7 +15,6 @@ This repository contains code and configuration needed to integrate [Presto](htt
     * [Distributed](#distributed)
   * [Configuring Presto](#configuring-presto)
     * [Adding and removing connectors](#adding-and-removing-connectors)
-    * [Adding and removing unlisted properties](#adding-and-removing-unlisted-properties)
 * [Getting help](#getting-help)
 * [Developers](#developers)
   * [Requirements for development](#requirements-for-development)
@@ -74,9 +73,17 @@ Pick a node for the Presto coordinator and assign as many Presto workers to node
 
 ## Configuring Presto
 
+The one configuration property that does not have a default and requires input is `discovery.uri`. The expected value is `http://<FQDN-of-node-hosting-coordinator>:8081`. Note that it is http and not https and that the port is 8081. If you change the value of `http-server.http.port`, make sure to also change it in `disovery.uri`.
+
+Some of the most popular properties are displayed in the Settings tab (open by default). In the Advanced tab, set custom properties by opening up the correct drop down and specifying a key and a value. Note that specifying a property that Presto does not recognize will cause the installation to finish with errors as some or all servers fail to start.
+
+Change the Presto configuration after installation by selecting the Presto service followed by the Configs tab. After changing a configuration option, restart Presto for the changes to take effect. *Unfortunately, the orange/yellow Restart button that appears after the new configuration is saved, does not work. To restart Presto, navigate to each host and restart the component from there. We have contacted Hortonworks about this and are awaiting a fix/workaround.*
+
 ### Adding and removing connectors
 
-### Adding and removing unlisted properties
+To add a connector modify the `connectors.to.add` property, whose format is the following: `'{'connector1': ['key1=value1', 'key2=value2', etc.], 'connector2': ['key3=value3', 'key4=value4'], etc.}'`. Note the single quotes around the whole property and around each individual element. This property only adds connectors and will not delete connectors. Thus, if you add connector1, save the configuration, restart Presto, then specify {} for this property, connector1 will not be deleted.
+
+To delete a connector modify the `connectors.to.delete` property, whose format is the following: `'['connector1', 'connector2', etc.]'`. Again, note the single quotes around the whole property and around each element. The above value will delete connectors `connector1` and `connector2`.
 
 # Getting help
 
