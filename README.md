@@ -1,9 +1,9 @@
 # ambari-presto-service
 
-This repository contains code and configuration needed to integrate [Presto](https://prestodb.io/) with [Ambari](https://ambari.apache.org/). The integration packages allows you to:
+This repository contains the code and configuration needed to integrate [Presto](https://prestodb.io/) with [Ambari](https://ambari.apache.org/). Adding the Presto service to Ambari allows:
 
-1. Install and deploy Presto on your cluster from the Ambari UI.
-2. Change Presto configuration options via the Ambari UI.
+1. Installing and deploying Presto on a cluster from the Ambari UI.
+2. Changing Presto configuration options via the Ambari UI.
 
 # Table of contents
 
@@ -31,7 +31,7 @@ This repository contains code and configuration needed to integrate [Presto](htt
 
 ## Adding the Presto service
 
-This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari.
+This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari. By default, this integration code installs Presto version `0.127t`. To change the distribution to install another version, see [Build and custom distributions](#build-and-custome-distributions).
 
 Unfortunately, at the moment Ambari does not support a more user friendly installation method and the installation has to be done by following the somewhat manual steps outlined below.
 
@@ -87,6 +87,8 @@ To delete a connector modify the `connectors.to.delete` property, whose format i
 
 # Getting help
 
+If you're having trouble with anything, please file an issue and we'll try our best to help you out.
+
 # Developers
 
 ## Requirements for development
@@ -112,6 +114,6 @@ For more information on developing service integration code for Ambari, the foll
 
 ## Build and custom distributions
 
-The build system for this project is very simple: we use Python's standard [distutils](https://docs.python.org/2/distutils/) module. We wrap calls to the `setup.py` script with a Makefile to make common actions even simpler. To build the distribution execute `make dist`, to run the unit tests execute `make test` and to get more information on the other availabel targets execute `make help`.
+The build system for this project is very simple; it uses Python's standard [distutils](https://docs.python.org/2/distutils/) module. Calls to the `setup.py` script are wrapped with a Makefile to make common operations simple. Execute `make dist` to build the distribution, `make test` to run the unit tests and `make help` to get more info on all the available targets.
 
-If you're having trouble with something feel free to file an issue. PRs are always welcome!
+By default, the integration code installs Teradata's `0.127t` version of Presto. Change the version displayed by Ambari when adding the Presto service by specifying a value for the `VERSION` variable when building the distribution. For example, to display Presto version `0.130`, run `make dist VERSION=0.130`. To download a different RPM and CLI to match version `0.130`, edit the `package/sctips/download.ini` file with URLs for both.
