@@ -29,6 +29,7 @@ This repository contains the code and configuration needed to integrate [Presto]
 
 1. You must have Ambari installed and thus transitively fulfill [Ambari's requirements](http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.2.1/bk_Installing_HDP_AMB/content/_meet_minimum_system_requirements.html).
 2. Oracle Java JDK 1.8 (64-bit). Note that when installing Ambari you will be prompted to pick a JDK. You can tell Ambari to download Oracle JDK 1.8 or point it to an existing installation. Presto picks up whatever JDK Ambari was installed with so it is imperative that Ambari is running on Oracle JDK 1.8.
+3. Disable `requiretty`. On RHEL 6.x this can be done by editing the `/etc/sudoers` file and commenting out `Defaults    requiretty`.
 
 ## Adding the Presto service
 
@@ -97,6 +98,8 @@ Query 20151120_203243_00003_68gdx failed: java.security.AccessControlException: 
 	at org.apache.hadoop.hdfs.server.namenode.FSDirectory.checkPermission(FSDirectory.java:1771)
 ```
 To work around the issue, edit your `jvm.config` settings by adding the following property `-DHADOOP_USER_NAME=hive`. This problem affects Presto `0.115t` but does not affect `0.127t`. After saving your edit to `jvm.config`, don't forget to restart all Presto components in order for the changes to take effect.
+
+If you decide to deploy an older version of Presto, you may have to adjust some setting manually. Please see [Configuring Presto](#configuring-presto) for an explanation of how to add custom settings. For example, the `task.max-memory` setting was deprecated in `0.127t` but is valid in `0.115t`. Therefore, if you're installing `0.115t` and would like to change `task.max-memory` to something other than its default, add it as a custom property.
 
 # Getting help
 
