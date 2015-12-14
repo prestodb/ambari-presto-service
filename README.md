@@ -15,6 +15,7 @@ This repository contains the code and configuration needed to integrate [Presto]
     * [Distributed](#distributed)
   * [Configuring Presto](#configuring-presto)
     * [Adding and removing connectors](#adding-and-removing-connectors)
+* [Known issues](#known-issues)
 * [Getting help](#getting-help)
 * [Developers](#developers)
   * [Requirements for development](#requirements-for-development)
@@ -84,6 +85,18 @@ Change the Presto configuration after installation by selecting the Presto servi
 To add a connector modify the `connectors.to.add` property, whose format is the following: `'{'connector1': ['key1=value1', 'key2=value2', etc.], 'connector2': ['key3=value3', 'key4=value4'], etc.}'`. Note the single quotes around the whole property and around each individual element. This property only adds connectors and will not delete connectors. Thus, if you add connector1, save the configuration, restart Presto, then specify {} for this property, connector1 will not be deleted.
 
 To delete a connector modify the `connectors.to.delete` property, whose format is the following: `'['connector1', 'connector2', etc.]'`. Again, note the single quotes around the whole property and around each element. The above value will delete connectors `connector1` and `connector2`.
+
+# Known issues
+
+For some older versions of Presto, when attempting to `CREATE TABLE` or `CREATE TABLE AS` using the Hive connector, you may run into the following error:
+```
+Query 20151120_203243_00003_68gdx failed: java.security.AccessControlException: Permission denied: user=hive, access=WRITE, inode="/apps/hive/warehouse/nation":hdfs:hdfs:drwxr-xr-x
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermissionChecker.java:319)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkPermission(FSPermissionChecker.java:219)
+	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkPermission(FSPermissionChecker.java:190)
+	at org.apache.hadoop.hdfs.server.namenode.FSDirectory.checkPermission(FSDirectory.java:1771)
+```
+To work around the issue, edit your `jvm.config` settings by adding the following property `-DHADOOP_USER_NAME=hive`. This problem affects Presto `0.115t` but does not affect `0.127t`. After saving your edit to `jvm.config`, don't forget to restart all Presto components in order for the changes to take effect.
 
 # Getting help
 
