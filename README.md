@@ -81,6 +81,8 @@ Some of the most popular properties are displayed in the Settings tab (open by d
 
 Change the Presto configuration after installation by selecting the Presto service followed by the Configs tab. After changing a configuration option, restart Presto for the changes to take effect. *Unfortunately, the orange/yellow Restart button that appears after the new configuration is saved, does not work. To restart Presto, navigate to each host and restart the component from there. We have contacted Hortonworks about this and are awaiting a fix/workaround.*
 
+If you are running a version of Ambari that is older than 2.1 (version less than 2.1), then you must omit the memory suffix (GB) when setting the following memory related configurations: 'query.max-memory-per-node' and 'query.max-memory'. For these two properties the memory suffix is automatically added by the integration software. For all other memory related configurations that you add as custom properties, you'll have to include the memory suffix when specifying the value.
+
 ### Adding and removing connectors
 
 To add a connector modify the `connectors.to.add` property, whose format is the following: `'{'connector1': ['key1=value1', 'key2=value2', etc.], 'connector2': ['key3=value3', 'key4=value4'], etc.}'`. Note the single quotes around the whole property and around each individual element. This property only adds connectors and will not delete connectors. Thus, if you add connector1, save the configuration, restart Presto, then specify {} for this property, connector1 will not be deleted.
