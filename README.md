@@ -87,7 +87,7 @@ If you are running a version of Ambari that is older than 2.1 (version less than
 
 To add a connector modify the `connectors.to.add` property, whose format is the following: `'{'connector1': ['key1=value1', 'key2=value2', etc.], 'connector2': ['key3=value3', 'key4=value4'], etc.}'`. Note the single quotes around the whole property and around each individual element. This property only adds connectors and will not delete connectors. Thus, if you add connector1, save the configuration, restart Presto, then specify {} for this property, connector1 will not be deleted.
 
-To delete a connector modify the `connectors.to.delete` property, whose format is the following: `'['connector1', 'connector2', etc.]'`. Again, note the single quotes around the whole property and around each element. The above value will delete connectors `connector1` and `connector2`.
+To delete a connector modify the `connectors.to.delete` property, whose format is the following: `'['connector1', 'connector2', etc.]'`. Again, note the single quotes around the whole property and around each element. The above value will delete connectors `connector1` and `connector2`. Note that the `tpch` connector cannot be deleted because it is used to smoketest Presto after it starts. The impact that the presence of the `tpch` connector has on the system is negligible.
 
 # Known issues
 
