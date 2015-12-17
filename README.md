@@ -57,7 +57,7 @@ $ ambari-server restart
 
 ## Supported topologies
 
-The following two screens will allow you to assign the Presto processes among the nodes in your cluster.
+The following two screens will allow you to assign the Presto processes among the nodes in your cluster. Unfortunately, once you pick a topology for Presto and finish the installation process it is impossible to tweak the topology.
 
 Presto is composed of a coordinator and worker processes. The same code runs all nodes because the same Presto server RPM is installed for both workers and coordinator. It is the configuration on each node that determines how a particular node will behave. Presto can run in pseudo-distributed mode, where a single Presto process on one node acts as both coordinator and worker, or in distributed mode, where the Presto coordinator runs on one node and the Presto workers run on other nodes.
 
@@ -67,7 +67,7 @@ The client component of Presto is the `presto-cli` executable JAR. You should pl
 
 ### Pseudo-distributed
 
-Pick a node for the Presto coordinator and *do not assign any Presto workers*. On the configuration screen that follows, you must also enable pseudo-distributed mode by clicking the toggle. If you assign Presto workers to nodes and enable the pseudo-distributed toggle, the installation will fail.
+Pick a node for the Presto coordinator and *do not assign any Presto workers*. On the configuration screen that follows, you must also enable `node-scheduler.include-coordinator` by clicking the toggle.
 
 ### Distributed
 

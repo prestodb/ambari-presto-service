@@ -58,8 +58,6 @@ class Worker(Script):
             for key, value in config_properties.iteritems():
                 if key == 'query.queue-config-file' and value.strip() == '':
                     continue
-                if key == 'pseudo.distributed.enabled':
-                    continue
                 if key in memory_configs:
                     value += 'GB'
                 f.write(key_val_template.format(key, value))

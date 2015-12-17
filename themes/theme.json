@@ -131,10 +131,6 @@
           "subsection-name": "subsection-general-config"
         },
         {
-          "config": "config.properties/pseudo.distributed.enabled",
-          "subsection-name": "subsection-general-config"
-        },
-        {
           "config": "jvm.config/jvm.config",
           "subsection-name": "subsection-jvm-config"
         }
@@ -209,12 +205,6 @@
         "config": "config.properties/discovery.uri",
         "widget": {
           "type": "text-area"
-        }
-      },
-      {
-        "config": "config.properties/pseudo.distributed.enabled",
-        "widget": {
-          "type": "toggle"
         }
       },
       {

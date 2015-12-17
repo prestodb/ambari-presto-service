@@ -113,29 +113,4 @@
   </property>
 -->
 
-  <property>
-    <name>pseudo.distributed.enabled</name>
-    <value>false</value>
-    <description>
-      Run Presto in pseudo-distributed mode. Coordinator and worker run in
-      a single process on a single node. If this option is selected the only
-      component that needs to be assigned to a node is the coordinator.
-    </description>
-    <display-name>Pseudo Distributed Mode</display-name>
-    <value-attributes>
-      <type>value-list</type>
-      <entries>
-        <entry>
-          <value>true</value>
-          <label>Enabled</label>
-        </entry>
-        <entry>
-          <value>false</value>
-          <label>Disabled</label>
-        </entry>
-      </entries>
-      <selection-cardinality>1</selection-cardinality>
-    </value-attributes>
-  </property>
-
 </configuration>

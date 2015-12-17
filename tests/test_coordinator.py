@@ -28,16 +28,9 @@ from test_worker import mock_file_descriptor_write_method, \
 
 class TestCoordinator(unittest.TestCase):
 
-    dummy_config_properties = {'pseudo.distributed.enabled': False,
-                               'query.queue-config-file': '',
+    dummy_config_properties = {'query.queue-config-file': '',
                                'http-server.http.port': '8081',
-                               'node-scheduler.include-coordinator': True}
-
-    pseudo_distributed_config_properties = {'pseudo.distributed.enabled': True,
-                                            'node-scheduler.include-coordinator': False}
-
-    minimal_config_properties = {'pseudo.distributed.enabled': False,
-                                 'node-scheduler.include-coordinator': False}
+                               'node-scheduler.include-coordinator': 'true'}
 
     for memory_config in memory_configs:
         dummy_config_properties[memory_config] = '123'
@@ -114,7 +107,7 @@ class TestCoordinator(unittest.TestCase):
         assert smoketest_presto_mock.called
 
     @patch('package.scripts.presto_coordinator.create_connectors')
-    @patch('package.scripts.params.config_properties', new=minimal_config_properties)
+    @patch('package.scripts.params.config_properties', new={})
     def test_assert_constant_properties(self, create_connectors_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
@@ -132,7 +125,7 @@ class TestCoordinator(unittest.TestCase):
 
     @patch('package.scripts.params.host_info', new={'presto_coordinator_hosts': ['master']})
     @patch('package.scripts.presto_coordinator.create_connectors')
-    @patch('package.scripts.params.config_properties', new=pseudo_distributed_config_properties)
+    @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_configure_pseudo_distributed(self, create_connectors_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
@@ -140,23 +133,10 @@ class TestCoordinator(unittest.TestCase):
 
     @patch('package.scripts.presto_coordinator.create_connectors')
     @patch('package.scripts.params.config_properties', new=dummy_config_properties)
-    def test_user_set_coordinator_as_worker(self, create_connectors_mock):
-        config = collect_config_vars_written_out(self.mock_env, Coordinator())
-
-        assert 'node-scheduler.include-coordinator=True\n' in config
-
-    @patch('package.scripts.presto_coordinator.create_connectors')
-    @patch('package.scripts.params.config_properties', new=dummy_config_properties)
     def test_memory_settings_have_units(self, create_connectos_mock):
         config = collect_config_vars_written_out(self.mock_env, Coordinator())
 
         assert_memory_configs_properly_formatted(config)
-
-    @patch('package.scripts.presto_coordinator.create_connectors')
-    @patch('package.scripts.params.host_info', new={'presto_worker_hosts': ['slave1']})
-    @patch('package.scripts.params.config_properties', new=pseudo_distributed_config_properties)
-    def test_pseudo_distributed_topology_enforced(self, create_connectors_mock):
-        TestCase.assertRaises(self, RuntimeError, collect_config_vars_written_out, self.mock_env, Coordinator())
 
 def assert_memory_configs_properly_formatted(configs_to_test):
     import re

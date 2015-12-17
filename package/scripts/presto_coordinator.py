@@ -68,24 +68,11 @@ class Coordinator(Script):
             for key, value in config_properties.iteritems():
                 if key == 'query.queue-config-file' and value.strip() == '':
                     continue
-                # Ignore as it's not an actual config property, just
-                # the user visible equivalent to node-scheduler.include-coordinator
-                if key == 'pseudo.distributed.enabled' or key == 'node-scheduler.include-coordinator':
-                    continue
                 if key in memory_configs:
                     value += 'GB'
                 f.write(key_val_template.format(key, value))
             f.write(key_val_template.format('coordinator', 'true'))
             f.write(key_val_template.format('discovery-server.enabled', 'true'))
-            if (config_properties['pseudo.distributed.enabled'] and
-                'presto_worker_hosts' in host_info.keys()):
-                raise RuntimeError('You cannot specify worker nodes in pseudo distributed mode')
-            elif config_properties['pseudo.distributed.enabled']:
-                f.write(key_val_template.format(
-                    'node-scheduler.include-coordinator', 'true'))
-            else:
-                f.write(key_val_template.format('node-scheduler.include-coordinator',
-                    str(config_properties['node-scheduler.include-coordinator'])))
 
         create_connectors(node_properties, connectors_to_add)
         delete_connectors(node_properties, connectors_to_delete)
