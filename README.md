@@ -37,23 +37,23 @@ This section and all others that follow within [Getting Started](#getting-starte
 
 Unfortunately, at the moment Ambari does not support a more user friendly installation method and the installation has to be done by following the somewhat manual steps outlined below.
 
-1. Assuming HDP 2.3 was installed with Ambari, create the following directory on the node where the `ambari-server` is running:
+* Assuming HDP 2.3 was installed with Ambari, create the following directory on the node where the `ambari-server` is running:
 ```bash
 $ mkdir /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 $ cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 ```
-2. Place the integration files within the newly created PRESTO directory. Download the integration package that installs Teradata's '0.127t' from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) or download the integration package that installs '0.130' from the releases section of this project. Upload the integration archive to your cluster and extract it like so:
+* Place the integration files within the newly created PRESTO directory. Download the integration package that installs Teradata's '0.127t' from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) or download the integration package that installs '0.130' from the releases section of this project. Upload the integration archive to your cluster and extract it like so:
 ```bash
 $ tar -xvf /path/to/integration/package/ambari-presto-0.1.0.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 $ mv /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-0.1.0/* /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 $ rm -f /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-0.1.0
 ```
-3. Finally, make all integration files executable and restart the Ambari server:
+* Finally, make all integration files executable and restart the Ambari server:
 ```bash
 $ chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.2/services/PRESTO/*
 $ ambari-server restart
 ```
-4. Once the server has restarted, point your browser to it and on the main Ambari Web UI page click the `Add Service` button and follow the on screen wizard to add Presto. The following sections provide more details on the options and choices you will make when adding Presto.
+* Once the server has restarted, point your browser to it and on the main Ambari Web UI page click the `Add Service` button and follow the on screen wizard to add Presto. The following sections provide more details on the options and choices you will make when adding Presto.
 
 ## Supported topologies
 
@@ -91,7 +91,7 @@ To delete a connector modify the `connectors.to.delete` property, whose format i
 
 # Known issues
 
-For some older versions of Presto, when attempting to `CREATE TABLE` or `CREATE TABLE AS` using the Hive connector, you may run into the following error:
+* For some older versions of Presto, when attempting to `CREATE TABLE` or `CREATE TABLE AS` using the Hive connector, you may run into the following error:
 ```
 Query 20151120_203243_00003_68gdx failed: java.security.AccessControlException: Permission denied: user=hive, access=WRITE, inode="/apps/hive/warehouse/nation":hdfs:hdfs:drwxr-xr-x
 	at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermissionChecker.java:319)
@@ -101,7 +101,7 @@ Query 20151120_203243_00003_68gdx failed: java.security.AccessControlException: 
 ```
 To work around the issue, edit your `jvm.config` settings by adding the following property `-DHADOOP_USER_NAME=hive`. This problem affects Presto `0.115t` but does not affect `0.127t`. After saving your edit to `jvm.config`, don't forget to restart all Presto components in order for the changes to take effect.
 
-If you decide to deploy an older version of Presto, you may have to adjust some setting manually. Please see [Configuring Presto](#configuring-presto) for an explanation of how to add custom settings. For example, the `task.max-memory` setting was deprecated in `0.127t` but is valid in `0.115t`. Therefore, if you're installing `0.115t` and would like to change `task.max-memory` to something other than its default, add it as a custom property.
+* If you decide to deploy an older version of Presto, you may have to adjust some setting manually. Please see [Configuring Presto](#configuring-presto) for an explanation of how to add custom settings. For example, the `task.max-memory` setting was deprecated in `0.127t` but is valid in `0.115t`. Therefore, if you're installing `0.115t` and would like to change `task.max-memory` to something other than its default, add it as a custom property.
 
 # Getting help
 
