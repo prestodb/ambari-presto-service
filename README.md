@@ -33,7 +33,7 @@ This repository contains the code and configuration needed to integrate [Presto]
 
 ## Adding the Presto service
 
-This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari. By default, this integration code installs Presto version `0.127t`. To change the distribution to install another version, see [Build and custom distributions](#build-and-custome-distributions).
+This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari. By default, this integration code installs Presto version `0.130`, the latest version at the time of writing. To install the latest Teradata Presto release (0.127t), download the Ambari integration package from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) and follow the remaining instructions below. To change the distribution to install another version, see [Build and custom distributions](#build-and-custome-distributions).
 
 Unfortunately, at the moment Ambari does not support a more user friendly installation method and the installation has to be done by following the somewhat manual steps outlined below.
 
@@ -42,7 +42,7 @@ Unfortunately, at the moment Ambari does not support a more user friendly instal
 $ mkdir /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 $ cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 ```
-2. Place the integration files within the newly created PRESTO directory. Download the integration package from [here](https://s3-us-west-2.amazonaws.com/ambari-installation/ambari-presto-0.1.0.tar.gz) (TODO: swap in Teradata link), upload it to your cluster and extract it like so:
+2. Place the integration files within the newly created PRESTO directory. Download the integration package that installs Teradata's '0.127t' from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) or download the integration package that installs '0.130' from the releases section of this project. Upload the integration archive to your cluster and extract it like so:
 ```bash
 $ tar -xvf /path/to/integration/package/ambari-presto-0.1.0.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 $ mv /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-0.1.0/* /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
@@ -134,4 +134,4 @@ For more information on developing service integration code for Ambari, the foll
 
 The build system for this project is very simple; it uses Python's standard [distutils](https://docs.python.org/2/distutils/) module. Calls to the `setup.py` script are wrapped with a Makefile to make common operations simple. Execute `make dist` to build the distribution, `make test` to run the unit tests and `make help` to get more info on all the available targets.
 
-By default, the integration code installs Teradata's `0.127t` version of Presto. Change the version displayed by Ambari when adding the Presto service by specifying a value for the `VERSION` variable when building the distribution. For example, to display Presto version `0.130`, run `make dist VERSION=0.130`. To download a different RPM and CLI to match version `0.130`, edit the `package/sctips/download.ini` file with URLs for both.
+By default, the integration code installs Presto version `0.130` version of Presto. Change the version displayed by Ambari when adding the Presto service by specifying a value for the `VERSION` variable when building the distribution. For example, to display Presto version `0.124`, run `make dist VERSION=0.124`. To download a different RPM and CLI to match version `0.124`, edit the `package/sctips/download.ini` file with URLs for both.
