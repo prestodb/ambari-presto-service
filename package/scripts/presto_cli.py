@@ -14,14 +14,14 @@
 
 from resource_management.libraries.script.script import Script
 from resource_management.core.resources.system import Execute
-from common import PRESTO_CLI_URL, PRESTO_CLI_NAME
+from common import PRESTO_CLI_URL
 
 
 class Cli(Script):
     def install(self, env):
-        Execute('wget --no-check-certificate {0} -P /usr/lib/presto/bin'.format(PRESTO_CLI_URL))
-        Execute('chmod +x /usr/lib/presto/bin/{0}'.format(PRESTO_CLI_NAME))
-        Execute('mv /usr/lib/presto/bin/{0} /usr/lib/presto/bin/presto-cli'.format(PRESTO_CLI_NAME))
+        Execute('mkdir -p /usr/lib/presto/bin')
+        Execute('wget --no-check-certificate {0} -O /usr/lib/presto/bin/presto-cli'.format(PRESTO_CLI_URL))
+        Execute('chmod +x /usr/lib/presto/bin/presto-cli')
 
     def status(self, env):
         pass
