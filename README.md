@@ -30,6 +30,7 @@ This repository contains the code and configuration needed to integrate [Presto]
 1. You must have Ambari installed and thus transitively fulfill [Ambari's requirements](http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.2.1/bk_Installing_HDP_AMB/content/_meet_minimum_system_requirements.html).
 2. Oracle Java JDK 1.8 (64-bit). Note that when installing Ambari you will be prompted to pick a JDK. You can tell Ambari to download Oracle JDK 1.8 or point it to an existing installation. Presto picks up whatever JDK Ambari was installed with so it is imperative that Ambari is running on Oracle JDK 1.8.
 3. Disable `requiretty`. On RHEL 6.x this can be done by editing the `/etc/sudoers` file and commenting out `Defaults    requiretty`.
+4. Install `wget` on all nodes that will run a Presto component.
 
 ## Adding the Presto service
 
