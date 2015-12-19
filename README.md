@@ -80,7 +80,7 @@ The one configuration property that does not have a default and requires input i
 
 Some of the most popular properties are displayed in the Settings tab (open by default). In the Advanced tab, set custom properties by opening up the correct drop down and specifying a key and a value. Note that specifying a property that Presto does not recognize will cause the installation to finish with errors as some or all servers fail to start.
 
-Change the Presto configuration after installation by selecting the Presto service followed by the Configs tab. After changing a configuration option, restart Presto for the changes to take effect. *Unfortunately, the orange/yellow Restart button that appears after the new configuration is saved, does not work. To restart Presto, navigate to each host and restart the component from there. We have contacted Hortonworks about this and are awaiting a fix/workaround.*
+Change the Presto configuration after installation by selecting the Presto service followed by the Configs tab. After changing a configuration option, make sure to restart Presto for the changes to take effect.
 
 If you are running a version of Ambari that is older than 2.1 (version less than 2.1), then you must omit the memory suffix (GB) when setting the following memory related configurations: 'query.max-memory-per-node' and 'query.max-memory'. For these two properties the memory suffix is automatically added by the integration software. For all other memory related configurations that you add as custom properties, you'll have to include the memory suffix when specifying the value.
 

@@ -14,19 +14,40 @@
 
 from mock import MagicMock, patch
 
-import unittest
+from unittest import TestCase
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from package.scripts.presto_cli import Cli
 
-class TestCli(unittest.TestCase):
+class TestCli(TestCase):
+
+    def setUp(self):
+        self.presto_cli = Cli()
+        self.mock_env = MagicMock()
 
     @patch('package.scripts.presto_cli.Execute')
     def test_install_shells_out_to_execute(self, execute_mock):
-        presto_cli = Cli()
-
-        presto_cli.install(MagicMock)
+        self.presto_cli.install(MagicMock)
 
         assert execute_mock.called
+
+    # Raising ClientComponentHasNoStatus is needed so that restart
+    # functionality works.
+    def test_status_raises_exception(self):
+        try:
+            self.presto_cli.status(self.mock_env)
+        except Exception as e:
+            self.assertEqual(repr(e), 'ClientComponentHasNoStatus()')
+            return
+        TestCase.fail(self)
+
+    # Client must implement status, configure, start and stop even
+    # if those methods don't make sense for the component. They must
+    # be implement for restart functionality to work correctly.
+    def test_methods_overriden(self):
+        assert 'configure' in dir(self.presto_cli)
+        assert 'start' in dir(self.presto_cli)
+        assert 'stop' in dir(self.presto_cli)
+        assert 'status' in dir(self.presto_cli)

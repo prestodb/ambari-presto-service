@@ -1,0 +1,2 @@
+class ClientComponentHasNoStatus(Exception):
+    pass

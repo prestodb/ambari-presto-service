@@ -14,6 +14,7 @@
 
 from resource_management.libraries.script.script import Script
 from resource_management.core.resources.system import Execute
+from resource_management.core.exceptions import ClientComponentHasNoStatus
 from common import PRESTO_CLI_URL
 
 
@@ -24,11 +25,19 @@ class Cli(Script):
         Execute('chmod +x /usr/lib/presto/bin/presto-cli')
 
     def status(self, env):
-        pass
+        raise ClientComponentHasNoStatus()
 
     def configure(self, env):
-        # Actual configuration is done in the master and worker configure() methods
-        pass
+        import params
+        env.set_params(params)
+
+    def start(self, env):
+        import params
+        env.set_params(params)
+
+    def stop(self, env):
+        import params
+        env.set_params(params)
 
 if __name__ == '__main__':
     Cli().execute()
