@@ -104,6 +104,8 @@ To work around the issue, edit your `jvm.config` settings by adding the followin
 
 * If you decide to deploy an older version of Presto, you may have to adjust some setting manually. Please see [Configuring Presto](#configuring-presto) for an explanation of how to add custom settings. For example, the `task.max-memory` setting was deprecated in `0.127t` but is valid in `0.115t`. Therefore, if you're installing `0.115t` and would like to change `task.max-memory` to something other than its default, add it as a custom property.
 
+* On the Presto service home page, if you click on 'Presto workers', you will get an incorrect list of worker. This is a known issue and has been fixed in Ambari 2.2.0.
+
 # Getting help
 
 If you're having trouble with anything, please file an issue and we'll try our best to help you out.
