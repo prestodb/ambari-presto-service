@@ -21,7 +21,7 @@ This repository contains the code and configuration needed to integrate [Presto]
   * [Requirements for development](#requirements-for-development)
   * [Definitions](#definitions)
   * [Information on integrating services with Ambari](#information-on-integrating-services-with-ambari)
-  * [Build and custom distributions](#build-and-custome-distributions)
+  * [Build and custom distributions](#build-and-custom-distributions)
 
 # Getting Started
 
@@ -34,7 +34,7 @@ This repository contains the code and configuration needed to integrate [Presto]
 
 ## Adding the Presto service
 
-This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari. By default, this integration code installs Presto version `0.130`, the latest version at the time of writing. To install the latest Teradata Presto release (0.127t), download the Ambari integration package from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) and follow the remaining instructions below. To change the distribution to install another version, see [Build and custom distributions](#build-and-custome-distributions).
+This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari. By default, this integration code installs Presto version `0.130`, the latest version at the time of writing. To install the latest Teradata Presto release (0.127t), download the Ambari integration package from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) and follow the remaining instructions below. To change the distribution to install another version, see [Build and custom distributions](#build-and-custom-distributions).
 
 Unfortunately, at the moment Ambari does not support a more user friendly installation method and the installation has to be done by following the somewhat manual steps outlined below.
 
