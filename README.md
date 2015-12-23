@@ -36,7 +36,7 @@ This repository contains the code and configuration needed to integrate [Presto]
 
 This section and all others that follow within [Getting Started](#getting-started) walk you through the integration steps needed to get Presto working with Ambari. By default, this integration code installs Presto version `0.130`, the latest version at the time of writing. To install the latest Teradata Presto release (0.127t), download the Ambari integration package from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) and follow the remaining instructions below. To change the distribution to install another version, see [Build and custom distributions](#build-and-custom-distributions).
 
-Unfortunately, at the moment Ambari does not support a more user friendly installation method and the installation has to be done by following the somewhat manual steps outlined below.
+To integrate the Presto service with Ambari, follow the steps outlines below:
 
 * Assuming HDP 2.3 was installed with Ambari, create the following directory on the node where the `ambari-server` is running:
 ```bash
@@ -58,7 +58,7 @@ $ ambari-server restart
 
 ## Supported topologies
 
-The following two screens will allow you to assign the Presto processes among the nodes in your cluster. Unfortunately, once you pick a topology for Presto and finish the installation process it is impossible to tweak the topology.
+The following two screens will allow you to assign the Presto processes among the nodes in your cluster. Once you pick a topology for Presto and finish the installation process it is impossible to modify that topology.
 
 Presto is composed of a coordinator and worker processes. The same code runs all nodes because the same Presto server RPM is installed for both workers and coordinator. It is the configuration on each node that determines how a particular node will behave. Presto can run in pseudo-distributed mode, where a single Presto process on one node acts as both coordinator and worker, or in distributed mode, where the Presto coordinator runs on one node and the Presto workers run on other nodes.
 
@@ -108,7 +108,7 @@ To work around the issue, edit your `jvm.config` settings by adding the followin
 
 # Getting help
 
-If you're having trouble with anything, please file an issue and we'll try our best to help you out.
+If you're having trouble with anything, please (file a new issue)[https://github.com/prestodb/ambari-presto-service/issues] and we'll try our best to help you out.
 
 # Developers
 
@@ -137,4 +137,4 @@ For more information on developing service integration code for Ambari, the foll
 
 The build system for this project is very simple; it uses Python's standard [distutils](https://docs.python.org/2/distutils/) module. Calls to the `setup.py` script are wrapped with a Makefile to make common operations simple. Execute `make dist` to build the distribution, `make test` to run the unit tests and `make help` to get more info on all the available targets.
 
-By default, the integration code installs Presto version `0.130` version of Presto. Change the version displayed by Ambari when adding the Presto service by specifying a value for the `VERSION` variable when building the distribution. For example, to display Presto version `0.124`, run `make dist VERSION=0.124`. To download a different RPM and CLI to match version `0.124`, edit the `package/sctips/download.ini` file with URLs for both.
+By default, the integration code installs Presto version `0.130`. Change the version displayed by Ambari when adding the Presto service by specifying a value for the `VERSION` variable when building the distribution. For example, to display Presto version `0.124`, run `make dist VERSION=0.124`. To download a different RPM and CLI to match version `0.124`, edit the `package/scripts/download.ini` file with URLs for both.
