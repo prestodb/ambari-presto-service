@@ -45,9 +45,9 @@ $ cd /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 ```
 * Place the integration files within the newly created PRESTO directory. Download the integration package that installs Teradata's '0.127t' from [here](http://it.teradata.com/PrestoDownload/?LangType=1040&LangSelect=true) or download the integration package that installs '0.130' from the releases section of this project. Upload the integration archive to your cluster and extract it like so:
 ```bash
-$ tar -xvf /path/to/integration/package/ambari-presto-0.1.0.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
-$ mv /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-0.1.0/* /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
-$ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-0.1.0
+$ tar -xvf /path/to/integration/package/ambari-presto-1.0.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+$ mv /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-1.0/* /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+$ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-1.0
 ```
 * Finally, make all integration files executable and restart the Ambari server:
 ```bash
