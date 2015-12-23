@@ -108,7 +108,7 @@ To work around the issue, edit your `jvm.config` settings by adding the followin
 
 # Getting help
 
-If you're having trouble with anything, please (file a new issue)[https://github.com/prestodb/ambari-presto-service/issues] and we'll try our best to help you out.
+If you're having trouble with anything, please [file a new issue](https://github.com/prestodb/ambari-presto-service/issues) and we'll try our best to help you out.
 
 # Developers
 
