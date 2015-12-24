@@ -106,6 +106,8 @@ To work around the issue, edit your `jvm.config` settings by adding the followin
 
 * On the Presto service home page, if you click on 'Presto workers', you will get an incorrect list of workers. This is a known issue and has been fixed in Ambari 2.2.0.
 
+* If the installation of Presto fails with `Python script has been killed due to timeout after waiting 1800 secs`, then the `wget` for either the Presto RPM or `presto-cli` JAR has timed out. To increase the timeout, increase the `agent.package.install.task.timeout` setting in `/etc/ambari-server/conf/ambari.properties` on the Ambari server host. Make sure to restart the Ambari server for the change to take effect. To resume, either hit the Retry button in the installation wizard, or finish the wizard and then install all Presto components individually by navigating to the relevant host and selecting Re-install. The components can be installed manually in any order but when starting the components, make sure to start the Presto coordinator last. If the installation keeps timing out, we suggest downloading the RPM and JAR outside the installation process, uploading them somewhere on your network and editing `package/scripts/download.ini` with the new URLs.
+
 # Getting help
 
 If you're having trouble with anything, please [file a new issue](https://github.com/prestodb/ambari-presto-service/issues) and we'll try our best to help you out.
