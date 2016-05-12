@@ -19,11 +19,14 @@ help:
 	@echo "clean-build - remove build artifacts"
 	@echo "clean-test - remove test artifacts"
 	@echo "test - run all unit tests located in the tests directory"
+	@echo "clean-docs - remove documentation artifacts"
 	@echo "clean - remove all files and folders that are not checked into the repo"
 	@echo "dist - package and build integration code in a tar.gz"
+	@echo "docs - generate Sphinx HTML documentation"
+	@echo "open-docs - open the root document (index.html) using xdg-open"
 	@echo "help - display this help menu"
 
-clean: clean-pyc clean-build clean-test
+clean: clean-pyc clean-build clean-test clean-docs
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -40,6 +43,9 @@ clean-build:
 clean-test:
 	rm -rf .tox/
 
+clean-docs:
+	rm -rf docs/_build
+
 test: clean-test
 	tox -- -s tests
 
@@ -49,3 +55,10 @@ ifdef VERSION
 endif
 	python setup.py sdist
 	ls -l dist
+
+docs: clean-docs
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
+
+open-docs:
+	xdg-open docs/_build/html/index.html
