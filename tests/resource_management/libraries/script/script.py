@@ -10,4 +10,5 @@ class Script(object):
                  'jvm.config': {'jvm.config': ''},
                  'config.properties': {},
                  'connectors.properties': {'connectors.to.add': '{}', 'connectors.to.delete': '{}'}},
-                 'clusterHostInfo': {'presto_worker_hosts': [], 'presto_coordinator_hosts': []}}
+                 'clusterHostInfo': {'presto_worker_hosts': [], 'presto_coordinator_hosts': []},
+                 'hostLevelParams': {'java_home': '/some/fake/path'}}
