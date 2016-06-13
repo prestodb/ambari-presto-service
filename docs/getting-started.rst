@@ -10,11 +10,10 @@ Requirements for integration
 1. Red Hat Enterprise Linux 6.x (64-bit) or CentOS equivalent.
 2. You must have Ambari installed and thus transitively fulfill
    `Ambari's requirements <http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.2.1/bk_Installing_HDP_AMB/content/_meet_minimum_system_requirements.html>`_.
-3. Oracle Java JDK 1.8 (64-bit). Note that when installing Ambari you will
-   be prompted to pick a JDK. You can tell Ambari to download Oracle JDK 1.8
-   or point it to an existing installation. Presto picks up whatever JDK
-   Ambari was installed with so it is imperative that Ambari is running on
-   Oracle JDK 1.8.
+3. Oracle's JDK 1.8u60+ for Presto versions after 0.148 and
+   1.8u40+ otherwise. We recommend you read the section on
+   :ref:`jdk-configuration-label` to fully understand
+   the relationship between Presto and Ambari's JDK.
 4. Disable ``requiretty``. On RHEL 6.x this can be done by editing the
    ``/etc/sudoers`` file and commenting out ``Defaults    requiretty``.
 5. Install ``wget`` on all nodes that will run a Presto component.
@@ -168,3 +167,32 @@ the system.
 
 For example, to delete the Hive and Kafka connectors, set the
 ``connectors.to.delete`` property to: ``['hive', 'kafka']``.
+
+.. _jdk-configuration-label:
+
+JDK Configuration
+=================
+
+During Ambari's installation, the user is allowed to pick the JDK
+that Ambari will use to start itself as well as other services it controls.
+This JDK can be edited at any time after installation by running
+``ambari-server setup`` on the host running the Ambari server process and
+then restarting that process by running ``ambari-server restart`` for
+the changes to take effect.
+
+When choosing the JDK version to run, the user is presented with three
+options: ``1.8``, ``1.7`` or a custom JDK. If the ``1.8`` or ``1.7``
+option is chosen then Ambari will download a JDK of that major version.
+However, the update (minor) versions of the JDK differs based on Ambari's
+version. For example, Ambari ``2.2.0+`` will download ``1.8u60`` and
+versions before will download ``1.8u40``.
+
+When Ambari installs Presto, the JDK used is going to be the JDK
+that Ambari was configured with (specifically, the value of
+``java.home`` in ``/etc/ambari-server/conf/ambari.properties``).
+However, unlike other services, once Presto is installed it will
+use the same JDK it was installed with even if Ambari's JDK
+is re-configured. The reason for this is that during RPM installation,
+Presto's JDK is set in ``/etc/presto/env.sh``. To
+re-configure Presto's JDK, edit ``/etc/presto/env.sh`` on all
+hosts where Presto will run.
