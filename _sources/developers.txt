@@ -29,7 +29,7 @@ Information on integrating services with Ambari
 -----------------------------------------------
 
 For more information on developing service integration code for Ambari, the
-following resources might be helpful::
+following resources might be helpful:
 
 1. `Webcast <http://hortonworks.com/partners/learn/#ambari>`_ with Hortonworks
    engineers about integrating with Ambari. Includes slides and recorded
