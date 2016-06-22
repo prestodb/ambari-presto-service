@@ -111,8 +111,8 @@ Configuring Presto
 
 The one configuration property that does not have a default and requires
 input is ``discovery.uri``. The expected value is
-``http://<FQDN-of-node-hosting-coordinator>:8081``. Note that it is **http**
-and not **https** and that the port is 8081. If you change the value of
+``http://<FQDN-of-node-hosting-coordinator>:8285``. Note that it is **http**
+and not **https** and that the port is 8285. If you change the value of
 ``http-server.http.port``, make sure to also change it in ``disovery.uri``.
 
 Some of the most popular properties are displayed in the Settings tab

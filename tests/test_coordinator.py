@@ -29,7 +29,7 @@ from test_worker import mock_file_descriptor_write_method, \
 class TestCoordinator(unittest.TestCase):
 
     dummy_config_properties = {'query.queue-config-file': '',
-                               'http-server.http.port': '8081',
+                               'http-server.http.port': '8285',
                                'node-scheduler.include-coordinator': 'true'}
 
     for memory_config in memory_configs:

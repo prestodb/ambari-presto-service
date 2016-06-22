@@ -27,7 +27,7 @@ class TestWorker(unittest.TestCase):
 
     dummy_config_properties = {'pseudo.distributed.enabled': False,
                                'query.queue-config-file': '',
-                               'http-server.http.port': '8081',
+                               'http-server.http.port': '8285',
                                'node-scheduler.include-coordinator': False}
 
     minimal_config_properties = {'pseudo.distributed.enabled': False,

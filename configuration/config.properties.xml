@@ -43,7 +43,7 @@
 
   <property>
     <name>http-server.http.port</name>
-    <value>8081</value>
+    <value>8285</value>
     <description>
       Specifies the port for the HTTP server. Presto uses HTTP for all
       communication, internal and external
@@ -94,7 +94,7 @@
     <description>
       The URI to the Discovery server. Because we have enabled the embedded
       version of Discovery in the Presto coordinator, this should be the URI of
-      the Presto coordinator. For example: http://master.net:8081 but make sure
+      the Presto coordinator. For example: http://master.net:8285 but make sure
       to replace master.net with the actual hostname of your coordinator node.
       Ensure the port in the URI matches the port set in the http-server.http.port
       property. This URI must not end in a slash.
