@@ -8,7 +8,7 @@
     
     <title>Getting Started &mdash; ambari-presto-service 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Known Issues" href="known-issues.html" />
     <link rel="prev" title="ambari-presto-service" href="index.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -40,14 +40,14 @@
         <li class="right" >
           <a href="index.html" title="ambari-presto-service"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="getting-started">
 <span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
@@ -59,50 +59,50 @@
 <a class="reference external" href="http://docs.hortonworks.com/HDPDocuments/Ambari-2.1.2.1/bk_Installing_HDP_AMB/content/_meet_minimum_system_requirements.html">Ambari&#8217;s requirements</a>.</li>
 <li>Oracle&#8217;s JDK 1.8u60+ for Presto versions after 0.148 and
 1.8u40+ otherwise. We recommend you read the section on
-<a class="reference internal" href="#jdk-configuration-label"><span class="std std-ref">JDK Configuration</span></a> to fully understand
+<a class="reference internal" href="#jdk-configuration-label"><em>JDK Configuration</em></a> to fully understand
 the relationship between Presto and Ambari&#8217;s JDK.</li>
-<li>Disable <code class="docutils literal"><span class="pre">requiretty</span></code>. On RHEL 6.x this can be done by editing the
-<code class="docutils literal"><span class="pre">/etc/sudoers</span></code> file and commenting out <code class="docutils literal"><span class="pre">Defaults</span>&nbsp;&nbsp;&nbsp; <span class="pre">requiretty</span></code>.</li>
-<li>Install <code class="docutils literal"><span class="pre">wget</span></code> on all nodes that will run a Presto component.</li>
+<li>Disable <tt class="docutils literal"><span class="pre">requiretty</span></tt>. On RHEL 6.x this can be done by editing the
+<tt class="docutils literal"><span class="pre">/etc/sudoers</span></tt> file and commenting out <tt class="docutils literal"><span class="pre">Defaults</span>&nbsp;&nbsp;&nbsp; <span class="pre">requiretty</span></tt>.</li>
+<li>Install <tt class="docutils literal"><span class="pre">wget</span></tt> on all nodes that will run a Presto component.</li>
 </ol>
 </div>
 <div class="section" id="adding-the-presto-service">
 <h2>Adding the Presto service<a class="headerlink" href="#adding-the-presto-service" title="Permalink to this headline">¶</a></h2>
-<p>This section and all others that follow within <a class="reference internal" href="#getting-started"><span class="std std-ref">Getting Started</span></a>
+<p>This section and all others that follow within <a class="reference internal" href="#getting-started"><em>Getting Started</em></a>
 walk you through the integration steps needed to get Presto working with
-Ambari. By default, this integration code installs Presto version <code class="docutils literal"><span class="pre">0.130</span></code>,
+Ambari. By default, this integration code installs Presto version <tt class="docutils literal"><span class="pre">0.130</span></tt>,
 the latest version at the time of writing. To install the latest Teradata
-Presto release (<code class="docutils literal"><span class="pre">0.127t</span></code> at the time of writing), download the Ambari
+Presto release (<tt class="docutils literal"><span class="pre">0.127t</span></tt> at the time of writing), download the Ambari
 integration package from <a class="reference external" href="http://www.teradata.com/presto">here</a> and follow
 the remaining instructions below. To change the distribution to install
-another version, see <a class="reference internal" href="developers.html#build-and-custom-distributions"><span class="std std-ref">Build and custom distributions</span></a>.</p>
+another version, see <a class="reference internal" href="developers.html#build-and-custom-distributions"><em>Build and custom distributions</em></a>.</p>
 <p>To integrate the Presto service with Ambari, follow the steps outlined below:</p>
 <ul>
 <li><p class="first">Assuming HDP 2.3 was installed with Ambari, create the following directory on
-the node where the <code class="docutils literal"><span class="pre">ambari-server</span></code> is running:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ mkdir /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
-$ <span class="nb">cd</span> /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+the node where the <tt class="docutils literal"><span class="pre">ambari-server</span></tt> is running:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+<span class="nv">$ </span><span class="nb">cd</span> /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
 </pre></div>
 </div>
 </li>
 <li><p class="first">Place the integration files within the newly created PRESTO directory.
 Download the integration package that installs Teradata&#8217;s version from
 <a class="reference external" href="http://www.teradata.com/presto">here</a> or download the integration package
-that installs <code class="docutils literal"><span class="pre">0.130</span></code> from the <a class="reference external" href="https://github.com/prestodb/ambari-presto-service/releases">releases section of this project</a>. Upload the integration archive to your cluster and extract it like so:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ tar -xvf /path/to/integration/package/ambari-presto-1.0.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
-$ mv /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-1.0/* /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
-$ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-1.0
+that installs <tt class="docutils literal"><span class="pre">0.130</span></tt> from the <a class="reference external" href="https://github.com/prestodb/ambari-presto-service/releases">releases section of this project</a>. Upload the integration archive to your cluster and extract it like so:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tar -xvf /path/to/integration/package/ambari-presto-1.0.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+<span class="nv">$ </span>mv /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-1.0/* /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO
+<span class="nv">$ </span>rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/ambari-presto-1.0
 </pre></div>
 </div>
 </li>
 <li><p class="first">Finally, make all integration files executable and restart the Ambari server:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/*
-$ ambari-server restart
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.3/services/PRESTO/*
+<span class="nv">$ </span>ambari-server restart
 </pre></div>
 </div>
 </li>
 <li><p class="first">Once the server has restarted, point your browser to it and on the main
-Ambari Web UI page click the <code class="docutils literal"><span class="pre">Add</span> <span class="pre">Service</span></code> button and follow the on
+Ambari Web UI page click the <tt class="docutils literal"><span class="pre">Add</span> <span class="pre">Service</span></tt> button and follow the on
 screen wizard to add Presto. The following sections provide more details
 on the options and choices you will make when adding Presto.</p>
 </li>
@@ -120,23 +120,23 @@ particular node will behave. Presto can run in pseudo-distributed mode, where
 a single Presto process on one node acts as both coordinator and worker, or it
 can run in distributed mode, where the Presto coordinator runs on one node and
 the Presto workers run on other nodes.</p>
-<p>The client component of Presto is the <code class="docutils literal"><span class="pre">presto-cli</span></code> executable JAR. You
+<p>The client component of Presto is the <tt class="docutils literal"><span class="pre">presto-cli</span></tt> executable JAR. You
 should place it on all nodes where you expect to access the Presto server via
-this command line utility. The <code class="docutils literal"><span class="pre">presto-cli</span></code> executable JAR does not need to
+this command line utility. The <tt class="docutils literal"><span class="pre">presto-cli</span></tt> executable JAR does not need to
 be co-located with either a worker or a coordinator, it can be installed on
 its own. Once installed, the CLI can be found at
-<code class="docutils literal"><span class="pre">/usr/lib/presto/bin/presto-cli</span></code>.</p>
+<tt class="docutils literal"><span class="pre">/usr/lib/presto/bin/presto-cli</span></tt>.</p>
 <p><strong>Do not place a worker on the same node as a coordinator.</strong> Such an attempt
 will fail the installation because the integration software will attempt to
 install the RPM twice. In order to schedule work on the Presto coordinator,
 effectively turning the process into a dual worker/coordinator, please enable
-the <code class="docutils literal"><span class="pre">node-scheduler.include-coordinator</span></code> toggle available in the
+the <tt class="docutils literal"><span class="pre">node-scheduler.include-coordinator</span></tt> toggle available in the
 configuration screen.</p>
 <div class="section" id="pseudo-distributed">
 <h3>Pseudo-distributed<a class="headerlink" href="#pseudo-distributed" title="Permalink to this headline">¶</a></h3>
 <p>Pick a node for the Presto coordinator and <strong>do not assign any Presto workers</strong>.
 On the configuration screen that follows, you must also enable
-<code class="docutils literal"><span class="pre">node-scheduler.include-coordinator</span></code> by clicking the toggle.</p>
+<tt class="docutils literal"><span class="pre">node-scheduler.include-coordinator</span></tt> by clicking the toggle.</p>
 </div>
 <div class="section" id="distributed">
 <h3>Distributed<a class="headerlink" href="#distributed" title="Permalink to this headline">¶</a></h3>
@@ -148,10 +148,10 @@ Remember to not place a worker on the same node as a coordinator.</p>
 <div class="section" id="configuring-presto">
 <h2>Configuring Presto<a class="headerlink" href="#configuring-presto" title="Permalink to this headline">¶</a></h2>
 <p>The one configuration property that does not have a default and requires
-input is <code class="docutils literal"><span class="pre">discovery.uri</span></code>. The expected value is
-<code class="docutils literal"><span class="pre">http://&lt;FQDN-of-node-hosting-coordinator&gt;:8081</span></code>. Note that it is <strong>http</strong>
-and not <strong>https</strong> and that the port is 8081. If you change the value of
-<code class="docutils literal"><span class="pre">http-server.http.port</span></code>, make sure to also change it in <code class="docutils literal"><span class="pre">disovery.uri</span></code>.</p>
+input is <tt class="docutils literal"><span class="pre">discovery.uri</span></tt>. The expected value is
+<tt class="docutils literal"><span class="pre">http://&lt;FQDN-of-node-hosting-coordinator&gt;:8285</span></tt>. Note that it is <strong>http</strong>
+and not <strong>https</strong> and that the port is 8285. If you change the value of
+<tt class="docutils literal"><span class="pre">http-server.http.port</span></tt>, make sure to also change it in <tt class="docutils literal"><span class="pre">disovery.uri</span></tt>.</p>
 <p>Some of the most popular properties are displayed in the Settings tab
 (open by default). In the Advanced tab, set custom properties by opening up
 the correct drop down and specifying a key and a value. Note that specifying
@@ -163,41 +163,41 @@ make sure to restart Presto for the changes to take effect.</p>
 <p>If you are running a version of Ambari that is older than 2.1
 (version number numerically less than 2.1), then you must omit the memory
 suffix (GB) when setting the following memory related configurations:
-<code class="docutils literal"><span class="pre">query.max-memory-per-node</span></code> and <code class="docutils literal"><span class="pre">query.max-memory</span></code>. For these two
+<tt class="docutils literal"><span class="pre">query.max-memory-per-node</span></tt> and <tt class="docutils literal"><span class="pre">query.max-memory</span></tt>. For these two
 properties the memory suffix is automatically added by the integration
 software. For all other memory related configurations that you add as
 custom properties, you&#8217;ll have to include the memory suffix when specifying
 the value.</p>
 <div class="section" id="adding-and-removing-connectors">
 <h3>Adding and removing connectors<a class="headerlink" href="#adding-and-removing-connectors" title="Permalink to this headline">¶</a></h3>
-<p>To add a connector modify the <code class="docutils literal"><span class="pre">connectors.to.add</span></code> property, whose format is
-the following: <code class="docutils literal"><span class="pre">{'connector1':</span> <span class="pre">['key1=value1',</span> <span class="pre">'key2=value2',</span> <span class="pre">etc.],</span>
-<span class="pre">'connector2':</span> <span class="pre">['key3=value3',</span> <span class="pre">'key4=value4'],</span> <span class="pre">etc.}</span></code>.
+<p>To add a connector modify the <tt class="docutils literal"><span class="pre">connectors.to.add</span></tt> property, whose format is
+the following: <tt class="docutils literal"><span class="pre">{'connector1':</span> <span class="pre">['key1=value1',</span> <span class="pre">'key2=value2',</span> <span class="pre">etc.],</span>
+<span class="pre">'connector2':</span> <span class="pre">['key3=value3',</span> <span class="pre">'key4=value4'],</span> <span class="pre">etc.}</span></tt>.
 Note the single quotes around each individual element. This property only
 adds connectors and will not delete connectors. Thus, if you add
-<code class="docutils literal"><span class="pre">connector1</span></code>, save the configuration, restart Presto, then specify <code class="docutils literal"><span class="pre">{}</span></code>
-for this property, <code class="docutils literal"><span class="pre">connector1</span></code> will not be deleted. If you specify
+<tt class="docutils literal"><span class="pre">connector1</span></tt>, save the configuration, restart Presto, then specify <tt class="docutils literal"><span class="pre">{}</span></tt>
+for this property, <tt class="docutils literal"><span class="pre">connector1</span></tt> will not be deleted. If you specify
 incorrect values in your connector settings, for example setting the
-<code class="docutils literal"><span class="pre">hive.metastore.uri</span></code> in the Hive connector to point to an invalid hostname,
+<tt class="docutils literal"><span class="pre">hive.metastore.uri</span></tt> in the Hive connector to point to an invalid hostname,
 then Presto will fail to start.</p>
 <p>For example, to add the Hive and Kafka connectors, set the <cite>connectors.to.add</cite> property to:</p>
 <blockquote>
-<div><div class="highlight-none"><div class="highlight"><pre><span></span>{
+<div><div class="highlight-none"><div class="highlight"><pre>{
     &#39;hive&#39;: [&#39;connector.name=hive-cdh4&#39;, &#39;hive.metastore.uri=thrift://example.net:9083&#39;],
     &#39;kafka&#39;: [&#39;connector.name=kafka&#39;, &#39;kafka.table-names=table1,table2&#39;, &#39;kafka.nodes=host1:port,host2:port&#39;]
 }
 </pre></div>
 </div>
 </div></blockquote>
-<p>To delete a connector modify the <code class="docutils literal"><span class="pre">connectors.to.delete</span></code> property, whose
-format is the following: <code class="docutils literal"><span class="pre">['connector1',</span> <span class="pre">'connector2',</span> <span class="pre">etc.]</span></code>. Again,
+<p>To delete a connector modify the <tt class="docutils literal"><span class="pre">connectors.to.delete</span></tt> property, whose
+format is the following: <tt class="docutils literal"><span class="pre">['connector1',</span> <span class="pre">'connector2',</span> <span class="pre">etc.]</span></tt>. Again,
 note the single quotes around each element. The above value will delete
-connectors <code class="docutils literal"><span class="pre">connector1</span></code> and <code class="docutils literal"><span class="pre">connector2</span></code>. Note that the <code class="docutils literal"><span class="pre">tpch</span></code>
+connectors <tt class="docutils literal"><span class="pre">connector1</span></tt> and <tt class="docutils literal"><span class="pre">connector2</span></tt>. Note that the <tt class="docutils literal"><span class="pre">tpch</span></tt>
 connector cannot be deleted because it is used to smoketest Presto after
-it starts. The presence of the <code class="docutils literal"><span class="pre">tpch</span></code> connector has negligible impact on
+it starts. The presence of the <tt class="docutils literal"><span class="pre">tpch</span></tt> connector has negligible impact on
 the system.</p>
 <p>For example, to delete the Hive and Kafka connectors, set the
-<code class="docutils literal"><span class="pre">connectors.to.delete</span></code> property to: <code class="docutils literal"><span class="pre">['hive',</span> <span class="pre">'kafka']</span></code>.</p>
+<tt class="docutils literal"><span class="pre">connectors.to.delete</span></tt> property to: <tt class="docutils literal"><span class="pre">['hive',</span> <span class="pre">'kafka']</span></tt>.</p>
 </div>
 </div>
 <div class="section" id="jdk-configuration">
@@ -205,23 +205,23 @@ the system.</p>
 <p>During Ambari&#8217;s installation, the user is allowed to pick the JDK
 that Ambari will use to start itself as well as other services it controls.
 This JDK can be edited at any time after installation by running
-<code class="docutils literal"><span class="pre">ambari-server</span> <span class="pre">setup</span></code> on the host running the Ambari server process and
-then restarting that process by running <code class="docutils literal"><span class="pre">ambari-server</span> <span class="pre">restart</span></code> for
+<tt class="docutils literal"><span class="pre">ambari-server</span> <span class="pre">setup</span></tt> on the host running the Ambari server process and
+then restarting that process by running <tt class="docutils literal"><span class="pre">ambari-server</span> <span class="pre">restart</span></tt> for
 the changes to take effect.</p>
 <p>When choosing the JDK version to run, the user is presented with three
-options: <code class="docutils literal"><span class="pre">1.8</span></code>, <code class="docutils literal"><span class="pre">1.7</span></code> or a custom JDK. If the <code class="docutils literal"><span class="pre">1.8</span></code> or <code class="docutils literal"><span class="pre">1.7</span></code>
+options: <tt class="docutils literal"><span class="pre">1.8</span></tt>, <tt class="docutils literal"><span class="pre">1.7</span></tt> or a custom JDK. If the <tt class="docutils literal"><span class="pre">1.8</span></tt> or <tt class="docutils literal"><span class="pre">1.7</span></tt>
 option is chosen then Ambari will download a JDK of that major version.
 However, the update (minor) versions of the JDK differs based on Ambari&#8217;s
-version. For example, Ambari <code class="docutils literal"><span class="pre">2.2.0+</span></code> will download <code class="docutils literal"><span class="pre">1.8u60</span></code> and
-versions before will download <code class="docutils literal"><span class="pre">1.8u40</span></code>.</p>
+version. For example, Ambari <tt class="docutils literal"><span class="pre">2.2.0+</span></tt> will download <tt class="docutils literal"><span class="pre">1.8u60</span></tt> and
+versions before will download <tt class="docutils literal"><span class="pre">1.8u40</span></tt>.</p>
 <p>When Ambari installs Presto, the JDK used is going to be the JDK
 that Ambari was configured with (specifically, the value of
-<code class="docutils literal"><span class="pre">java.home</span></code> in <code class="docutils literal"><span class="pre">/etc/ambari-server/conf/ambari.properties</span></code>).
+<tt class="docutils literal"><span class="pre">java.home</span></tt> in <tt class="docutils literal"><span class="pre">/etc/ambari-server/conf/ambari.properties</span></tt>).
 However, unlike other services, once Presto is installed it will
 use the same JDK it was installed with even if Ambari&#8217;s JDK
 is re-configured. The reason for this is that during RPM installation,
-Presto&#8217;s JDK is set in <code class="docutils literal"><span class="pre">/etc/presto/env.sh</span></code>. To
-re-configure Presto&#8217;s JDK, edit <code class="docutils literal"><span class="pre">/etc/presto/env.sh</span></code> on all
+Presto&#8217;s JDK is set in <tt class="docutils literal"><span class="pre">/etc/presto/env.sh</span></tt>. To
+re-configure Presto&#8217;s JDK, edit <tt class="docutils literal"><span class="pre">/etc/presto/env.sh</span></tt> on all
 hosts where Presto will run.</p>
 </div>
 </div>
@@ -230,7 +230,7 @@ hosts where Presto will run.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -257,14 +257,12 @@ hosts where Presto will run.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="known-issues.html"
                         title="next chapter">Known Issues</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/getting-started.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/getting-started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -272,13 +270,16 @@ hosts where Presto will run.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -290,11 +291,11 @@ hosts where Presto will run.</p>
         <li class="right" >
           <a href="index.html" title="ambari-presto-service"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    <div class="footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

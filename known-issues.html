@@ -8,7 +8,7 @@
     
     <title>Known Issues &mdash; ambari-presto-service 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -27,8 +27,8 @@
     <link rel="next" title="Getting Help" href="getting-help.html" />
     <link rel="prev" title="Getting Started" href="getting-started.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -40,60 +40,60 @@
         <li class="right" >
           <a href="getting-started.html" title="Getting Started"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="known-issues">
 <h1>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h1>
 <ul>
-<li><p class="first">For some older versions of Presto, when attempting to <code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TABLE</span></code> or
-<code class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TABLE</span> <span class="pre">AS</span></code> using the Hive connector, you may run into the following
+<li><p class="first">For some older versions of Presto, when attempting to <tt class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TABLE</span></tt> or
+<tt class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TABLE</span> <span class="pre">AS</span></tt> using the Hive connector, you may run into the following
 error:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Query</span> <span class="mi">20151120</span><span class="n">_203243_00003_68gdx</span> <span class="n">failed</span><span class="p">:</span> <span class="n">java</span><span class="o">.</span><span class="n">security</span><span class="o">.</span><span class="n">AccessControlException</span><span class="p">:</span> <span class="n">Permission</span> <span class="n">denied</span><span class="p">:</span> <span class="n">user</span><span class="o">=</span><span class="n">hive</span><span class="p">,</span> <span class="n">access</span><span class="o">=</span><span class="n">WRITE</span><span class="p">,</span> <span class="n">inode</span><span class="o">=</span><span class="s2">&quot;/apps/hive/warehouse/nation&quot;</span><span class="p">:</span><span class="n">hdfs</span><span class="p">:</span><span class="n">hdfs</span><span class="p">:</span><span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span>
-    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">hadoop</span><span class="o">.</span><span class="n">hdfs</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">namenode</span><span class="o">.</span><span class="n">FSPermissionChecker</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">FSPermissionChecker</span><span class="o">.</span><span class="n">java</span><span class="p">:</span><span class="mi">319</span><span class="p">)</span>
-    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">hadoop</span><span class="o">.</span><span class="n">hdfs</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">namenode</span><span class="o">.</span><span class="n">FSPermissionChecker</span><span class="o">.</span><span class="n">checkPermission</span><span class="p">(</span><span class="n">FSPermissionChecker</span><span class="o">.</span><span class="n">java</span><span class="p">:</span><span class="mi">219</span><span class="p">)</span>
-    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">hadoop</span><span class="o">.</span><span class="n">hdfs</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">namenode</span><span class="o">.</span><span class="n">FSPermissionChecker</span><span class="o">.</span><span class="n">checkPermission</span><span class="p">(</span><span class="n">FSPermissionChecker</span><span class="o">.</span><span class="n">java</span><span class="p">:</span><span class="mi">190</span><span class="p">)</span>
-    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">hadoop</span><span class="o">.</span><span class="n">hdfs</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">namenode</span><span class="o">.</span><span class="n">FSDirectory</span><span class="o">.</span><span class="n">checkPermission</span><span class="p">(</span><span class="n">FSDirectory</span><span class="o">.</span><span class="n">java</span><span class="p">:</span><span class="mi">1771</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre>Query 20151120_203243_00003_68gdx failed: java.security.AccessControlException: Permission denied: user=hive, access=WRITE, inode=&quot;/apps/hive/warehouse/nation&quot;:hdfs:hdfs:drwxr-xr-x
+    at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermissionChecker.java:319)
+    at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkPermission(FSPermissionChecker.java:219)
+    at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.checkPermission(FSPermissionChecker.java:190)
+    at org.apache.hadoop.hdfs.server.namenode.FSDirectory.checkPermission(FSDirectory.java:1771)
 </pre></div>
 </div>
-<p>To work around the issue, edit your <code class="docutils literal"><span class="pre">jvm.config</span></code> settings by adding the
-following property <code class="docutils literal"><span class="pre">-DHADOOP_USER_NAME=hive</span></code>. This problem affects Presto
-<code class="docutils literal"><span class="pre">0.115t</span></code> but does not affect <code class="docutils literal"><span class="pre">0.127t</span></code>. After saving your edit to
-<code class="docutils literal"><span class="pre">jvm.config</span></code>, don&#8217;t forget to restart all Presto components in order for
+<p>To work around the issue, edit your <tt class="docutils literal"><span class="pre">jvm.config</span></tt> settings by adding the
+following property <tt class="docutils literal"><span class="pre">-DHADOOP_USER_NAME=hive</span></tt>. This problem affects Presto
+<tt class="docutils literal"><span class="pre">0.115t</span></tt> but does not affect <tt class="docutils literal"><span class="pre">0.127t</span></tt>. After saving your edit to
+<tt class="docutils literal"><span class="pre">jvm.config</span></tt>, don&#8217;t forget to restart all Presto components in order for
 the changes to take effect.</p>
 </li>
 <li><p class="first">If you decide to deploy an older version of Presto, you may have to adjust
 some setting manually. Please see [Configuring Presto](#configuring-presto)
 for an explanation of how to add custom settings. For example, the
-<code class="docutils literal"><span class="pre">task.max-memory</span></code> setting was deprecated in <code class="docutils literal"><span class="pre">0.127t</span></code> but is valid in
-<code class="docutils literal"><span class="pre">0.115t</span></code>. Therefore, if you&#8217;re installing <code class="docutils literal"><span class="pre">0.115t</span></code> and would like to
-change <code class="docutils literal"><span class="pre">task.max-memory</span></code> to something other than its default, add it as
+<tt class="docutils literal"><span class="pre">task.max-memory</span></tt> setting was deprecated in <tt class="docutils literal"><span class="pre">0.127t</span></tt> but is valid in
+<tt class="docutils literal"><span class="pre">0.115t</span></tt>. Therefore, if you&#8217;re installing <tt class="docutils literal"><span class="pre">0.115t</span></tt> and would like to
+change <tt class="docutils literal"><span class="pre">task.max-memory</span></tt> to something other than its default, add it as
 a custom property.</p>
 </li>
-<li><p class="first">On the Presto service home page, if you click on <code class="docutils literal"><span class="pre">Presto</span> <span class="pre">workers</span></code>, you
+<li><p class="first">On the Presto service home page, if you click on <tt class="docutils literal"><span class="pre">Presto</span> <span class="pre">workers</span></tt>, you
 will get an incorrect list of workers. This is a known issue and has been
 fixed in Ambari 2.2.0.</p>
 </li>
-<li><p class="first">If the installation of Presto fails with <code class="docutils literal"><span class="pre">Python</span> <span class="pre">script</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">killed</span>
-<span class="pre">due</span> <span class="pre">to</span> <span class="pre">timeout</span> <span class="pre">after</span> <span class="pre">waiting</span> <span class="pre">1800</span> <span class="pre">secs</span></code>, then the <code class="docutils literal"><span class="pre">wget</span></code> for either the
-Presto RPM or <code class="docutils literal"><span class="pre">presto-cli</span></code> JAR has timed out. To increase the timeout,
-increase the <code class="docutils literal"><span class="pre">agent.package.install.task.timeout</span></code> setting in
-<code class="docutils literal"><span class="pre">/etc/ambari-server/conf/ambari.properties</span></code> on the Ambari server host.
+<li><p class="first">If the installation of Presto fails with <tt class="docutils literal"><span class="pre">Python</span> <span class="pre">script</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">killed</span>
+<span class="pre">due</span> <span class="pre">to</span> <span class="pre">timeout</span> <span class="pre">after</span> <span class="pre">waiting</span> <span class="pre">1800</span> <span class="pre">secs</span></tt>, then the <tt class="docutils literal"><span class="pre">wget</span></tt> for either the
+Presto RPM or <tt class="docutils literal"><span class="pre">presto-cli</span></tt> JAR has timed out. To increase the timeout,
+increase the <tt class="docutils literal"><span class="pre">agent.package.install.task.timeout</span></tt> setting in
+<tt class="docutils literal"><span class="pre">/etc/ambari-server/conf/ambari.properties</span></tt> on the Ambari server host.
 Make sure to restart the Ambari server for the change to take effect.
 To resume, either hit the Retry button in the installation wizard, or
 finish the wizard and then install all Presto components individually by
-navigating to the relevant host and selecting <code class="docutils literal"><span class="pre">re-install</span></code>. The
+navigating to the relevant host and selecting <tt class="docutils literal"><span class="pre">re-install</span></tt>. The
 components can be installed manually in any order but when starting the
 components, make sure to start the Presto coordinator last. If the
 installation keeps timing out, we suggest downloading the RPM and JAR
 outside the installation process, uploading them somewhere on your network
-and editing <code class="docutils literal"><span class="pre">package/scripts/download.ini</span></code> with the new URLs.</p>
+and editing <tt class="docutils literal"><span class="pre">package/scripts/download.ini</span></tt> with the new URLs.</p>
 </li>
 <li><p class="first">At the moment, upgrading Presto from Ambari is not possible. Even though
 Ambari provides the capability to upgrade software, we didn&#8217;t get a chance
@@ -111,7 +111,7 @@ the new version.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="getting-started.html"
@@ -119,14 +119,12 @@ the new version.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="getting-help.html"
                         title="next chapter">Getting Help</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/known-issues.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/known-issues.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -134,13 +132,16 @@ the new version.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -152,11 +153,11 @@ the new version.</p>
         <li class="right" >
           <a href="getting-started.html" title="Getting Started"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    <div class="footer">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
