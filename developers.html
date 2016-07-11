@@ -8,7 +8,7 @@
     
     <title>Developers &mdash; ambari-presto-service 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -26,8 +26,8 @@
     <link rel="top" title="ambari-presto-service 1.0 documentation" href="index.html" />
     <link rel="prev" title="Getting Help" href="getting-help.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,14 +36,14 @@
         <li class="right" >
           <a href="getting-help.html" title="Getting Help"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="developers">
 <h1>Developers<a class="headerlink" href="#developers" title="Permalink to this headline">¶</a></h1>
@@ -53,7 +53,7 @@
 <li>Python 2.6/2.7.</li>
 <li><a class="reference external" href="https://pip.pypa.io/en/stable/installing/">pip</a>.</li>
 <li><a class="reference external" href="https://www.gnu.org/software/make/">make</a>.</li>
-<li><tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">$(REPO_ROOT_DIR)/requirements.txt</span></tt>.</li>
+<li><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">$(REPO_ROOT_DIR)/requirements.txt</span></code>.</li>
 </ol>
 </div>
 <div class="section" id="definitions">
@@ -87,16 +87,16 @@ video/audio of the talk.</li>
 <span id="id1"></span><h2>Build and custom distributions<a class="headerlink" href="#build-and-custom-distributions" title="Permalink to this headline">¶</a></h2>
 <p>The build system for this project is very simple; it uses Python&#8217;s standard
 <a class="reference external" href="https://docs.python.org/2/distutils/">distutils</a> module. Calls to the
-<tt class="docutils literal"><span class="pre">setup.py</span></tt> script are wrapped with a Makefile to make common operations
-simple. Execute <tt class="docutils literal"><span class="pre">make</span> <span class="pre">dist</span></tt> to build the distribution, <tt class="docutils literal"><span class="pre">make</span> <span class="pre">test</span></tt> to run
-the unit tests and <tt class="docutils literal"><span class="pre">make</span> <span class="pre">help</span></tt> to get more info on all the available
+<code class="docutils literal"><span class="pre">setup.py</span></code> script are wrapped with a Makefile to make common operations
+simple. Execute <code class="docutils literal"><span class="pre">make</span> <span class="pre">dist</span></code> to build the distribution, <code class="docutils literal"><span class="pre">make</span> <span class="pre">test</span></code> to run
+the unit tests and <code class="docutils literal"><span class="pre">make</span> <span class="pre">help</span></code> to get more info on all the available
 targets.</p>
-<p>By default, the integration code installs Presto version <tt class="docutils literal"><span class="pre">0.130</span></tt>. Change the
+<p>By default, the integration code installs Presto version <code class="docutils literal"><span class="pre">0.148</span></code>. Change the
 version displayed by Ambari when adding the Presto service by specifying a
-value for the <tt class="docutils literal"><span class="pre">VERSION</span></tt> variable when building the distribution. For
-example, to display Presto version <tt class="docutils literal"><span class="pre">0.124</span></tt>, run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">dist</span> <span class="pre">VERSION=0.124</span></tt>.
-To download a different RPM and CLI to match version <tt class="docutils literal"><span class="pre">0.124</span></tt>, edit the
-<tt class="docutils literal"><span class="pre">package/scripts/download.ini</span></tt> file with URLs for both.</p>
+value for the <code class="docutils literal"><span class="pre">VERSION</span></code> variable when building the distribution. For
+example, to display Presto version <code class="docutils literal"><span class="pre">0.134</span></code>, run <code class="docutils literal"><span class="pre">make</span> <span class="pre">dist</span> <span class="pre">VERSION=0.134</span></code>.
+To download a different RPM and CLI to match version <code class="docutils literal"><span class="pre">0.134</span></code>, edit the
+<code class="docutils literal"><span class="pre">package/scripts/download.ini</span></code> file with URLs for both.</p>
 </div>
 </div>
 
@@ -104,7 +104,7 @@ To download a different RPM and CLI to match version <tt class="docutils literal
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -120,12 +120,14 @@ To download a different RPM and CLI to match version <tt class="docutils literal
   <h4>Previous topic</h4>
   <p class="topless"><a href="getting-help.html"
                         title="previous chapter">Getting Help</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/developers.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/developers.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -133,16 +135,13 @@ To download a different RPM and CLI to match version <tt class="docutils literal
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -151,11 +150,11 @@ To download a different RPM and CLI to match version <tt class="docutils literal
         <li class="right" >
           <a href="getting-help.html" title="Getting Help"
              >previous</a> |</li>
-        <li><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ambari-presto-service 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    <div class="footer" role="contentinfo">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>
