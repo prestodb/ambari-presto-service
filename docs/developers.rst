@@ -48,9 +48,9 @@ simple. Execute ``make dist`` to build the distribution, ``make test`` to run
 the unit tests and ``make help`` to get more info on all the available
 targets.
 
-By default, the integration code installs Presto version ``0.130``. Change the
+By default, the integration code installs Presto version ``0.148``. Change the
 version displayed by Ambari when adding the Presto service by specifying a
 value for the ``VERSION`` variable when building the distribution. For
-example, to display Presto version ``0.124``, run ``make dist VERSION=0.124``.
-To download a different RPM and CLI to match version ``0.124``, edit the
+example, to display Presto version ``0.134``, run ``make dist VERSION=0.134``.
+To download a different RPM and CLI to match version ``0.134``, edit the
 ``package/scripts/download.ini`` file with URLs for both.
