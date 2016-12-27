@@ -33,7 +33,7 @@ test_requirements = [
 
 setup(
     name='ambari-presto',
-    version='1.1',
+    version='1.2',
     description='This project contains the integration code for integrating \
 Presto as a service in Ambari.',
     long_description=readme + '\n\n' + history,
