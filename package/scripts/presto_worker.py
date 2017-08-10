@@ -17,6 +17,7 @@ import os.path as path
 
 from resource_management.libraries.script.script import Script
 from resource_management.core.resources.system import Execute
+from resource_management.core.exceptions import ExecutionFailed, ComponentIsNotRunning
 from common import PRESTO_RPM_URL, PRESTO_RPM_NAME, create_connectors, \
     delete_connectors
 
@@ -39,7 +40,14 @@ class Worker(Script):
 
     def status(self, env):
         from params import daemon_control_script
-        Execute('{0} status'.format(daemon_control_script))
+        try:
+            Execute('{0} status'.format(daemon_control_script))
+        except ExecutionFailed as ef:
+            if ef.code == 3:
+                raise ComponentIsNotRunning("ComponentIsNotRunning")
+            else:
+                raise ef
+
 
     def configure(self, env):
         from params import node_properties, jvm_config, config_properties, \

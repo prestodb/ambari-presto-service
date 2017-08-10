@@ -165,7 +165,7 @@ class PrestoClient:
         try:
             _LOGGER.info('Connecting to server at: ' + self.server +
                          ':' + str(self.port) + ' as user ' + self.user)
-            conn = HTTPConnection(self.server, self.port, False,
+            conn = HTTPConnection(self.server, int(self.port), False,
                                   URL_TIMEOUT_MS)
             conn.request('POST', '/v1/statement', sql, headers)
             response = conn.getresponse()
