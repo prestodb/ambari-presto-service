@@ -47,9 +47,9 @@ To integrate the Presto service with Ambari, follow the steps outlined below:
 
   .. code-block:: bash
 
-    $ tar -xvf /path/to/integration/package/ambari-presto-1.2.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
-    $ mv /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO/ambari-presto-1.2/* /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
-    $ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO/ambari-presto-1.2
+    $ tar -xvf /path/to/integration/package/ambari-presto-1.3.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
+    $ mv /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO/ambari-presto-1.3/* /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
+    $ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO/ambari-presto-1.3
 
 * Finally, make all integration files executable and restart the Ambari server:
 
