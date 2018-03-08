@@ -24,7 +24,7 @@
         interactive analytic queries against data sources of all sizes ranging
         from gigabytes to petabytes.
       </comment>
-      <version>0.161</version>
+      <version>0.196</version>
       <components>
         <component>
           <name>PRESTO_COORDINATOR</name>

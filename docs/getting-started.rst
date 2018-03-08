@@ -23,7 +23,7 @@ Adding the Presto service
 
 This section and all others that follow within :ref:`Getting Started <getting_started>`
 walk you through the integration steps needed to get Presto working with
-Ambari. By default, this integration code installs Presto version ``0.161``,
+Ambari. By default, this integration code installs Presto version ``0.196``,
 the latest version at the time of writing. To install the latest Teradata
 Presto release (``0.148t`` at the time of writing), download the Ambari
 integration package from `here <http://www.teradata.com/presto>`_ and follow
