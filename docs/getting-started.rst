@@ -32,13 +32,13 @@ another version, see :ref:`Build and custom distributions <build_and_custom_dist
 
 To integrate the Presto service with Ambari, follow the steps outlined below:
 
-* Assuming HDP 2.5 was installed with Ambari, create the following directory on
+* Assuming HDP 2.6 was installed with Ambari, create the following directory on
   the node where the ``ambari-server`` is running:
 
   .. code-block:: bash
 
-    $ mkdir /var/lib/ambari-server/resources/stacks/HDP/2.5/services/PRESTO
-    $ cd /var/lib/ambari-server/resources/stacks/HDP/2.5/services/PRESTO
+    $ mkdir /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
+    $ cd /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
 
 * Place the integration files within the newly created PRESTO directory.
   Download the integration package that installs Teradata's version from
@@ -47,15 +47,15 @@ To integrate the Presto service with Ambari, follow the steps outlined below:
 
   .. code-block:: bash
 
-    $ tar -xvf /path/to/integration/package/ambari-presto-1.2.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.5/services/PRESTO
-    $ mv /var/lib/ambari-server/resources/stacks/HDP/2.5/services/PRESTO/ambari-presto-1.2/* /var/lib/ambari-server/resources/stacks/HDP/2.5/services/PRESTO
-    $ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.5/services/PRESTO/ambari-presto-1.2
+    $ tar -xvf /path/to/integration/package/ambari-presto-1.2.tar.gz -C /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
+    $ mv /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO/ambari-presto-1.2/* /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO
+    $ rm -rf /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO/ambari-presto-1.2
 
 * Finally, make all integration files executable and restart the Ambari server:
 
   .. code-block:: bash
 
-    $ chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.5/services/PRESTO/*
+    $ chmod -R +x /var/lib/ambari-server/resources/stacks/HDP/2.6/services/PRESTO/*
     $ ambari-server restart
 
 * Once the server has restarted, point your browser to it and on the main
